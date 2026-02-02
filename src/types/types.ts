@@ -2,11 +2,11 @@ export interface Recipe {
     _id: string;
     user: string;
     title: string;
-    category: string[];
-    ingredients : string;
-    istructions : string;
+    category: string;
+    ingredients: string;
+    instructions: string;
     image: string;
-    tags : string[];
+    tags: string[];
     source: string;
 }
 
@@ -23,4 +23,14 @@ export interface RegistrationFormData {
     username: string;
     email: string;
     password: string;
+}
+
+export interface RecipeFormData {
+    title: string;
+    category: string;
+    ingredients: string;
+    instructions: string;
+    image: string;
+    tags: string[];
+    source: string;
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { RecipeFormData } from "../types/types";
 
 export async function getRecipes() {
   try {
@@ -10,6 +11,35 @@ export async function getRecipes() {
     });
     return response.data; // The retrieved data
   } catch (error) {
+    console.error('Error fetching post:', error);
+  }
+}
+
+export async function getOneRecipe(recipeId: string) {
+  try {
+    let token = localStorage.getItem("token");
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/recipes/${recipeId}`, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data; // The retrieved data
+  } catch (error) {
+    console.error('Error fetching post:', error);
+  }
+}
+
+export async function createNewRecipe(formData: RecipeFormData) {
+  try {
+      // Make the POST request
+      console.log(formData);
+      let token = localStorage.getItem("token");
+      console.log(`${import.meta.env.VITE_API_URL}/api/recipes`);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/recipes`, formData, {headers: {
+        'Authorization': token
+      }});
+      return response.data;
+    } catch (error) {
     console.error('Error fetching post:', error);
   }
 }

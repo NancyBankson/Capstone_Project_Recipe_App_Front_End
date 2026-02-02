@@ -68,3 +68,43 @@ nav button {
 img {
   border-radius: 15px;
 }
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 25px;
+}
+
+.recipe-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.recipe-head h1 {
+    padding-left: 40px;
+}
+
+.recipe-full {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-full img {
+    max-width: 350px;
+    height: 100%;
+}
+
+.recipe-body {
+    margin: 5px 20px 0 390px;
+    max-width: 60%;
+}
+
+.recipe-head button {
+    margin-left: 20px;
+}
+
+.ingredients {
+    text-align: left;
+}

@@ -10,13 +10,11 @@ export function ContributorPage() {
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>(recipes);
 
     useEffect(() => {
-        getRecipes().then(data => setRecipes(data));        
+        getRecipes().then(data => setRecipes(data));
     }, []);
 
     useEffect(() => {
         setFilteredRecipes(recipes.filter((recipe) => {
-            console.log(recipe.user);
-            console.log(userId);
             if (recipe.user === userId) {
                 return recipe;
             }
