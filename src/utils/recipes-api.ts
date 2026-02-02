@@ -22,6 +22,7 @@ export async function login(email: string, password: string) {
       password: password
     });
     localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", response.data.user._id);
     console.log('Logged in', response.data);
   } catch (error) {
     console.error('Error logging in', error);

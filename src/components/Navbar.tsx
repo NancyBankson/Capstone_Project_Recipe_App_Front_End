@@ -18,11 +18,14 @@ export function Navbar() {
         setSearchValue("");
     };
 
+    // Add logic so userId can be used for link to My Page
+    const userId = localStorage.getItem("user");
+
     return (
         <nav>
             <ul>
                 <li><NavLink to="/home" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Home</NavLink></li>
-                <li><NavLink to="/mypage" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>My Page</NavLink></li>
+                <li><NavLink to={`/${userId}`} style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>My Page</NavLink></li>
                 <li><NavLink to="/login" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Log In</NavLink></li>
             </ul>
             <form onSubmit={handleSubmit}>
