@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { RecipeFormData, Recipe } from "../types/types";
+import type { RecipeFormData, Recipe, MemoryFormData, Memory } from "../types/types";
 
 export async function getRecipes() {
   try {
@@ -77,6 +77,85 @@ export async function deleteRecipe(recipeId: string) {
     return response.data;
   } catch (error) {
     console.error('Error deleting recipe:', error);
+  }
+}
+
+export async function getMemories() {
+  try {
+    // Gets all memories
+    let token = localStorage.getItem("token");
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/memories`, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data; // The retrieved data
+  } catch (error) {
+    console.error('Error fetching memory:', error);
+  }
+}
+
+export async function getOneMemory(memoryId: string) {
+  try {
+    // Gets a single memory
+    let token = localStorage.getItem("token");
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/memories/${memoryId}`, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data; // The retrieved data
+  } catch (error) {
+    console.error('Error fetching memory:', error);
+  }
+}
+
+export async function createNewMemory(formData: MemoryFormData) {
+  try {
+    // Creates a new recipe
+    console.log(formData);
+    let token = localStorage.getItem("token");
+    console.log(`${import.meta.env.VITE_API_URL}/api/memories`);
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/memories`, formData, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding memory:', error);
+  }
+}
+
+export async function editMemory(formData: Memory) {
+  try {
+    // Edits a memory
+    let token = localStorage.getItem("token");
+    console.log(`${import.meta.env.VITE_API_URL}/api/memories/${formData._id}`);
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/memories/${formData._id}`, formData, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error editing memory:', error);
+  }
+}
+
+export async function deleteMemory(memoryId: string) {
+  try {
+    // Deletes a memory
+    let token = localStorage.getItem("token");
+    console.log(`${import.meta.env.VITE_API_URL}/api/memories/${memoryId}`);
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/memories/${memoryId}`, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting memory:', error);
   }
 }
 

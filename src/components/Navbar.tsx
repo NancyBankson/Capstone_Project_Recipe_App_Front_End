@@ -28,6 +28,7 @@ export function Navbar() {
                 <li><NavLink to={`/${userId}`} style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>My Page</NavLink></li>
                 <li><NavLink to="/login" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Log In</NavLink></li>
                 <li><NavLink to="/add-recipe" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Add Recipe</NavLink></li>
+                <li><NavLink to="/add-memory" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Add Memory</NavLink></li>
             </ul>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="search">Search</label>

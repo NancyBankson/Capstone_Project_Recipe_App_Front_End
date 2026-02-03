@@ -18,7 +18,8 @@ export function RecipeDetailPage() {
     image: "image",
     tags: ["tags"],
     source: "source"
-  }); const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  }); 
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [formData, setFormData] = useState<Recipe>(displayRecipe);
 
   const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert'];

@@ -4,41 +4,47 @@
 // import { Spinner } from '../../components/Spinner';
 // import { ErrorMessage } from '../../components/ErrorMessage';
 import { useState, useEffect } from 'react';
-import { getRecipes } from '../utils/recipes-api';
+import { getRecipes, getMemories } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
+import { MemoryList } from '../components/MemoryList';
 
 export function HomePage() {
-
   const [recipes, setRecipes] = useState(null);
+  const [memories, setMemories] = useState(null);
 
   useEffect(() => {
     getRecipes().then(data => setRecipes(data));
   }, []);
 
-//   const { data, loading, error } = useFetch<{ categories: Categories[] }>("https://www.themealdb.com/api/json/v1/1/categories.php");
+  useEffect(() => {
+    getMemories().then(data => setMemories(data));
+  }, []);
 
-//   if (loading) {
-//     return (
-//       <div className="loading">
-//         Loading recipes...
-//         <Spinner />
-//       </div>
-//     )
-//   }
-//   if (error) {
-//     return (
-//       <div>
-//         <ErrorMessage />
-//         Error: {error.message}
-//       </div>
-//     )
-//   }
+  //   const { data, loading, error } = useFetch<{ categories: Categories[] }>("https://www.themealdb.com/api/json/v1/1/categories.php");
+
+  //   if (loading) {
+  //     return (
+  //       <div className="loading">
+  //         Loading recipes...
+  //         <Spinner />
+  //       </div>
+  //     )
+  //   }
+  //   if (error) {
+  //     return (
+  //       <div>
+  //         <ErrorMessage />
+  //         Error: {error.message}
+  //       </div>
+  //     )
+  //   }
 
   return (
     <div>
       <h2>Recipes</h2>
       <div className='container'>
         <RecipeList recipes={recipes} />
+        <MemoryList memories={memories} />
         {/* {data?.categories.map((category) => {
           return (
             <div className="category-card" key={category.idCategory}>

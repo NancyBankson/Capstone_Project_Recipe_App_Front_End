@@ -10,8 +10,20 @@ export interface Recipe {
     source: string;
 }
 
+export interface Memory {
+    _id: string;
+    user: string;
+    title: string;
+    contents: string;
+    image: string;
+}
+
 export interface RecipeCardProps {
     recipes: Recipe[] | null;
+}
+
+export interface MemoryCardProps {
+    memories: Memory[] | null;
 }
 
 export interface LogInFormData {
@@ -33,4 +45,10 @@ export interface RecipeFormData {
     image: string;
     tags: string[];
     source: string;
+}
+
+export interface MemoryFormData {
+    title: string;
+    contents: string;
+    image: string;
 }

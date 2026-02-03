@@ -7,7 +7,7 @@ export function RecipeCard( { recipe }: {recipe: Recipe}) {
         <div>
             <Link to={`/recipe/${recipe._id}`}>{recipe.title}</Link>
             <p>Category: {recipe.category}</p>
-            <img src={recipe.image}></img>
+            {(recipe.image) && <img src={recipe.image}></img>}
         </div>
     )
 }
