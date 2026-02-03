@@ -110,6 +110,7 @@ export function RecipeDetailPage() {
             <h2>Instructions</h2>
             <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.instructions}</p>
             <h3>Category: {displayRecipe.category}</h3>
+            <h3>Tags: {displayRecipe.tags}</h3>
             {(displayRecipe.source) && <h3>Source: <a href={displayRecipe.source}>{displayRecipe.source}</a></h3>}
           </div>
         </div>
