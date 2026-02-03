@@ -3,6 +3,7 @@ import type { RecipeFormData, Recipe } from "../types/types";
 
 export async function getRecipes() {
   try {
+    // Gets all recipes
     let token = localStorage.getItem("token");
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/recipes`, {
       headers: {
@@ -17,6 +18,7 @@ export async function getRecipes() {
 
 export async function getOneRecipe(recipeId: string) {
   try {
+    // Gets a single recipe
     let token = localStorage.getItem("token");
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/recipes/${recipeId}`, {
       headers: {
@@ -31,32 +33,50 @@ export async function getOneRecipe(recipeId: string) {
 
 export async function createNewRecipe(formData: RecipeFormData) {
   try {
-      // Make the POST request
-      console.log(formData);
-      let token = localStorage.getItem("token");
-      console.log(`${import.meta.env.VITE_API_URL}/api/recipes`);
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/recipes`, formData, {headers: {
+    // Creates a new recipe
+    console.log(formData);
+    let token = localStorage.getItem("token");
+    console.log(`${import.meta.env.VITE_API_URL}/api/recipes`);
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/recipes`, formData, {
+      headers: {
         'Authorization': token
-      }});
-      return response.data;
-    } catch (error) {
+      }
+    });
+    return response.data;
+  } catch (error) {
     console.error('Error adding recipe:', error);
   }
 }
 
 export async function editRecipe(formData: Recipe) {
   try {
-      // Make the POST request
-      console.log("this is the editRecipe function");
-      console.log(formData._id);
-      let token = localStorage.getItem("token");
-      console.log(`${import.meta.env.VITE_API_URL}/api/recipes/${formData._id}`);
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/recipes/${formData._id}`, formData, {headers: {
+    // Edits a recipe
+    let token = localStorage.getItem("token");
+    console.log(`${import.meta.env.VITE_API_URL}/api/recipes/${formData._id}`);
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/recipes/${formData._id}`, formData, {
+      headers: {
         'Authorization': token
-      }});
-      return response.data;
-    } catch (error) {
+      }
+    });
+    return response.data;
+  } catch (error) {
     console.error('Error editing recipe:', error);
+  }
+}
+
+export async function deleteRecipe(recipeId: string) {
+  try {
+    // Deletes a recipe
+    let token = localStorage.getItem("token");
+    console.log(`${import.meta.env.VITE_API_URL}/api/recipes/${recipeId}`);
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/recipes/${recipeId}`, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
   }
 }
 

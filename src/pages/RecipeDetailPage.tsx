@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom"
 import type { Recipe } from "../types/types";
 import { useState, useEffect } from 'react';
-import { getOneRecipe } from "../utils/recipes-api";
-import { editRecipe } from "../utils/recipes-api";
+import { getOneRecipe, editRecipe, deleteRecipe } from "../utils/recipes-api";
 
 export function RecipeDetailPage() {
   const { recipeId } = useParams();
@@ -84,10 +83,16 @@ export function RecipeDetailPage() {
     })
     setIsVisible(false);
   };
+
+  const handleDelete = () => {
+     deleteRecipe(recipeId!);
+  };
+
   return (
     <>
       <div>
         {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
+        {(isAuthorized) && <button onClick={() => handleDelete()}>Delete</button>}
       </div>
       {(isVisible) && <div className='container'>
         <div className="recipe-full" key={displayRecipe._id}>
