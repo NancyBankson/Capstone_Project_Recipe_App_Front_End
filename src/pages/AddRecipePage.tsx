@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { RecipeFormData } from "../types/types";
 import { createNewRecipe } from "../utils/recipes-api";
 
@@ -10,11 +10,18 @@ export function AddRecipePage() {
         ingredients: '',
         instructions: '',
         image: '',
-        tags: [],
+        tags: selectedTags,
         source: ''
     });
 
-    const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert']
+    const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert'];
+
+    useEffect(() => {
+        setFormData(prevFormData => ({
+            ...prevFormData, // Spread existing state
+            tags: selectedTags    // Update changed field using computed property name
+        }));
+    }, [selectedTags]);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;
