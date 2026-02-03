@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { RecipeFormData } from "../types/types";
+import type { RecipeFormData, Recipe } from "../types/types";
 
 export async function getRecipes() {
   try {
@@ -11,7 +11,7 @@ export async function getRecipes() {
     });
     return response.data; // The retrieved data
   } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error('Error fetching recipe:', error);
   }
 }
 
@@ -25,7 +25,7 @@ export async function getOneRecipe(recipeId: string) {
     });
     return response.data; // The retrieved data
   } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error('Error fetching recipe:', error);
   }
 }
 
@@ -40,7 +40,23 @@ export async function createNewRecipe(formData: RecipeFormData) {
       }});
       return response.data;
     } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error('Error adding recipe:', error);
+  }
+}
+
+export async function editRecipe(formData: Recipe) {
+  try {
+      // Make the POST request
+      console.log("this is the editRecipe function");
+      console.log(formData._id);
+      let token = localStorage.getItem("token");
+      console.log(`${import.meta.env.VITE_API_URL}/api/recipes/${formData._id}`);
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/recipes/${formData._id}`, formData, {headers: {
+        'Authorization': token
+      }});
+      return response.data;
+    } catch (error) {
+    console.error('Error editing recipe:', error);
   }
 }
 
