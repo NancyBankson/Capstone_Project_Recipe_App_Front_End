@@ -85,9 +85,11 @@ export function MemoryDetailPage() {
 
     return (
         <>
-            <div>
+        <div className="container">
+            <div id="memory-buttons">
                 {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
                 {(isAuthorized) && <button onClick={() => handleDelete()}>Delete</button>}
+            </div>
             </div>
             {(isVisible) && <div className='container'>
                 <div className="memory-full" key={displayMemory._id}>

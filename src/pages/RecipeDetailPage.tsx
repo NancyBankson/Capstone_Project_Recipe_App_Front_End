@@ -119,10 +119,12 @@ export function RecipeDetailPage() {
 
   return (
     <>
-      <div>
+    <div className="container">
+       <div id="recipe-buttons">
         {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
         {(isAuthorized) && <button onClick={() => handleDelete()}>Delete</button>}
       </div>
+    </div>     
       {(isVisible) && <div className='container'>
         <div className="recipe-full" key={displayRecipe._id}>
           <div className="recipe-head">
