@@ -73,7 +73,7 @@ export function AddRecipePage() {
 
     return (
         <div className="recipe-container">
-            <form onSubmit={handleSubmit}>
+            <form id="add-recipe-form" onSubmit={handleSubmit}>
                 <label htmlFor="title">Recipe title:</label>
                 <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter title" required></input>
                 <label htmlFor="category">Category:</label>
@@ -92,7 +92,7 @@ export function AddRecipePage() {
                 <label htmlFor="tags">Tags:</label>
                 {tags.map((tag) => (
                     <label key={tag}>
-                        <input type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
+                        <input id="checkbox" type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
                         {tag}
                     </label>
                 ))}

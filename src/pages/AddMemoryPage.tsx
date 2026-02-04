@@ -24,7 +24,7 @@ export function AddMemoryPage() {
         // Redirects to the login page if the condition (isLoggedIn) is false
         return <Navigate to="/login" replace />;
     }
-    
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target; // Destructure name and value
 
@@ -46,7 +46,7 @@ export function AddMemoryPage() {
 
     return (
         <div className="memory-container">
-            <form onSubmit={handleSubmit}>
+            <form id="add-memory-form" onSubmit={handleSubmit}>
                 <label htmlFor="title">Memory title:</label>
                 <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter title" required></input>
                 <label htmlFor="contents">Contents:</label>

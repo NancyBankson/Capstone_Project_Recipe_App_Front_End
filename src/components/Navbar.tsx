@@ -8,25 +8,25 @@ export function Navbar() {
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
 
-   if (!authContext) {
+    if (!authContext) {
         return (
             <h3>Error</h3>
         )
     }
 
-    const { logout } = authContext;
+    const { logout, isAuthenticated } = authContext;
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // Update state when the input changes
-        setSearchValue(event.target.value);
-    };
+    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     // Update state when the input changes
+    //     setSearchValue(event.target.value);
+    // };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setSearchParams({ query: searchValue });
-        navigate(`/search?query=${searchValue}`);
-        setSearchValue("");
-    };
+    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    //     event.preventDefault();
+    //     setSearchParams({ query: searchValue });
+    //     navigate(`/search?query=${searchValue}`);
+    //     setSearchValue("");
+    // };
 
     const handleClick = () => {
         logout();
@@ -37,19 +37,24 @@ export function Navbar() {
 
     return (
         <nav>
-            <ul>
-                <li><NavLink to="/home" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Home</NavLink></li>
-                <li><NavLink to={`/${userId}`} style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>My Page</NavLink></li>
-                <li><NavLink to="/login" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Log In</NavLink></li>
-                <li><NavLink to="/add-recipe" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Add Recipe</NavLink></li>
-                <li><NavLink to="/add-memory" style={({ isActive }) => ({ color: isActive ? 'red' : 'black', })}>Add Memory</NavLink></li>
-            </ul>
-            <form onSubmit={handleSubmit}>
+            <div id="nav-container">
+                <ul>
+                    <li><NavLink to="/home" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Home</NavLink></li>
+                    <li><NavLink to={`/${userId}`} style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>My Page</NavLink></li>
+                    {/* <li><NavLink to="/login" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Log In</NavLink></li> */}
+                    <li><NavLink to="/add-recipe" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Recipe</NavLink></li>
+                    <li><NavLink to="/add-memory" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Memory</NavLink></li>
+                </ul>
+                {/* <form onSubmit={handleSubmit}>
                 <label htmlFor="search">Search</label>
                 <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Enter recipe"></input>
                 <button type="submit">Submit</button>
-            </form>
-            <button onClick={() => handleClick()}>Log Out</button>
+            </form> */}
+                <div>
+                    {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}
+                    {(isAuthenticated) && <button onClick={() => handleClick()}>Log Out</button>}
+                </div>
+            </div>
         </nav>
     )
 }

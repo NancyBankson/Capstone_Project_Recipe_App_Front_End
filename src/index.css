@@ -91,3 +91,11 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  background-color: #F5E4D7;
+   color: hsl(200, 15%, 8%);
+}
