@@ -1,10 +1,11 @@
-import { useParams, Navigate } from "react-router-dom"
+import { useParams, Navigate, useNavigate } from "react-router-dom"
 import type { Recipe } from "../types/types";
 import { useState, useEffect, useContext } from 'react';
 import { getOneRecipe, editRecipe, deleteRecipe } from "../utils/recipes-api";
 import { AuthContext } from "../context/AuthContext";
 
 export function RecipeDetailPage() {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const { recipeId } = useParams();
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -81,6 +82,9 @@ export function RecipeDetailPage() {
       ...prevFormData, // Spread existing state
       [name]: value     // Update changed field using computed property name
     }));
+    setDisplayRecipe(prevDisplayRecipe => ({
+      ...prevDisplayRecipe, [name]: value
+    }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -102,6 +106,8 @@ export function RecipeDetailPage() {
 
   const handleDelete = () => {
     deleteRecipe(recipeId!);
+    alert("Recipe deleted");
+    navigate(`/${displayRecipe.user}`);
   };
 
   return (
@@ -131,33 +137,35 @@ export function RecipeDetailPage() {
           </div>
         </div>
       </div>}
-      {(!isVisible) && <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Recipe title:</label>
-        <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayRecipe.title} required></input>
-        <label htmlFor="category">Category:</label>
-        <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange}>
-          <option value="Breakfast">Breakfast</option>
-          <option value="Side Dish">Side Dish</option>
-          <option value="Main Dish">Main Dish</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Appetizer">Appetizer</option>
-          <option value="Baked Good">Baked Good</option>
-        </select>
-        <label htmlFor="ingredients">Ingredients:</label>
-        <textarea id="ingredients-input" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder={displayRecipe.ingredients} required></textarea>
-        <label htmlFor="instructions">Instructions:</label>
-        <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder={displayRecipe.instructions} required></textarea>
-        <label htmlFor="tags">Tags:</label>
-        {tags.map((tag) => (
-          <label key={tag}>
-            <input type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
-            {tag}
-          </label>
-        ))}
-        <label htmlFor="source">Source:</label>
-        <input id="source-input" type="text" name="source" value={formData.source} onChange={handleChange} placeholder={displayRecipe.source}></input>
-        <button type="submit">Save</button>
-      </form>}
+      {(!isVisible) && <div className="recipe-container">
+        <form id="add-recipe-form" onSubmit={handleSubmit}>
+          <label htmlFor="title">Recipe title:</label>
+          <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayRecipe.title} required></input>
+          <label htmlFor="category">Category:</label>
+          <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange}>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Side Dish">Side Dish</option>
+            <option value="Main Dish">Main Dish</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Appetizer">Appetizer</option>
+            <option value="Baked Good">Baked Good</option>
+          </select>
+          <label htmlFor="ingredients">Ingredients:</label>
+          <textarea id="ingredients-input" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder={displayRecipe.ingredients} required></textarea>
+          <label htmlFor="instructions">Instructions:</label>
+          <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder={displayRecipe.instructions} required></textarea>
+          <label htmlFor="tags">Tags:</label>
+          {tags.map((tag) => (
+            <label key={tag}>
+              <input type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
+              {tag}
+            </label>
+          ))}
+          <label htmlFor="source">Source:</label>
+          <input id="source-input" type="text" name="source" value={formData.source} onChange={handleChange} placeholder={displayRecipe.source}></input>
+          <button type="submit">Save</button>
+        </form>
+      </div>}
     </>
   );
 }

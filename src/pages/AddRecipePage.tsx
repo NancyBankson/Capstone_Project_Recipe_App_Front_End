@@ -16,6 +16,15 @@ export function AddRecipePage() {
         tags: selectedTags,
         source: ''
     });
+    const [checkboxes, setCheckboxes] = useState({
+        Casserole: false,
+        Chocolate: false,
+        Chicken: false,
+        Beef: false,
+        Fish: false,
+        Pasta: false,
+        Dessert: false
+    });
 
     const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert'];
 
@@ -68,7 +77,18 @@ export function AddRecipePage() {
             image: '',
             tags: selectedTags,
             source: ''
-        })
+        });
+        setSelectedTags([]);
+        setCheckboxes({
+            Casserole: false,
+            Chocolate: false,
+            Chicken: false,
+            Beef: false,
+            Fish: false,
+            Pasta: false,
+            Dessert: false
+        });
+        alert("Recipe added");
     };
 
     return (
@@ -77,7 +97,8 @@ export function AddRecipePage() {
                 <label htmlFor="title">Recipe title:</label>
                 <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter title" required></input>
                 <label htmlFor="category">Category:</label>
-                <select id="category-input" name="category" value={formData.category} onChange={handleChange}>
+                <select id="category-input" name="category" value={formData.category} onChange={handleChange} required>
+                    <option value="">Select category</option>
                     <option value="Breakfast">Breakfast</option>
                     <option value="Side Dish">Side Dish</option>
                     <option value="Main Dish">Main Dish</option>
@@ -92,7 +113,7 @@ export function AddRecipePage() {
                 <label htmlFor="tags">Tags:</label>
                 {tags.map((tag) => (
                     <label key={tag}>
-                        <input id="checkbox" type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
+                        <input id="checkbox" type="checkbox" name={tag} value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
                         {tag}
                     </label>
                 ))}

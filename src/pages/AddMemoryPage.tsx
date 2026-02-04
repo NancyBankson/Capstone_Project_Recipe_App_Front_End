@@ -37,11 +37,12 @@ export function AddMemoryPage() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         createNewMemory(formData);
+        alert("New memory created");
         setFormData({
             title: '',
             contents: '',
             image: ''
-        })
+        });
     };
 
     return (

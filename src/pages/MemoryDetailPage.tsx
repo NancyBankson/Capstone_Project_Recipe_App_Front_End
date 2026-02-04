@@ -1,10 +1,11 @@
-import { useParams, Navigate } from "react-router-dom"
+import { useParams, Navigate, useNavigate } from "react-router-dom"
 import type { Memory } from "../types/types";
 import { useState, useEffect, useContext } from 'react';
 import { getOneMemory, editMemory, deleteMemory } from "../utils/recipes-api";
 import { AuthContext } from "../context/AuthContext";
 
 export function MemoryDetailPage() {
+    const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     const { memoryId } = useParams();
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -58,6 +59,9 @@ export function MemoryDetailPage() {
             ...prevFormData, // Spread existing state
             [name]: value     // Update changed field using computed property name
         }));
+        setDisplayMemory(prevDisplayMemory => ({
+            ...prevDisplayMemory, [name]: value  
+        }));
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,12 +73,14 @@ export function MemoryDetailPage() {
             title: '',
             contents: '',
             image: ''
-        })
-        setIsVisible(false);
+        });
+        setIsVisible(true);
     };
 
     const handleDelete = () => {
         deleteMemory(memoryId!);
+        alert("Memory deleted");
+        navigate(`/${displayMemory.user}`); // Navigate to user's page
     };
 
     return (
@@ -92,19 +98,20 @@ export function MemoryDetailPage() {
                     </div>
                     <div className="memory-body">
                         <div className="contents">
-                            <h2>Contents</h2>
                             <p style={{ whiteSpace: 'pre-wrap' }}>{displayMemory.contents}</p>
                         </div>
                     </div>
                 </div>
             </div>}
-            {(!isVisible) && <form onSubmit={handleSubmit}>
-                <label htmlFor="title">Memory title:</label>
-                <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayMemory.title} required></input>
-                <label htmlFor="contents">Contents:</label>
-                <textarea id="contents-input" name="contents" value={formData.contents} onChange={handleChange} placeholder={displayMemory.contents} required></textarea>
-                <button type="submit">Save</button>
-            </form>}
+            {(!isVisible) && <div className="memory-container">
+                <form id="add-memory-form" onSubmit={handleSubmit}>
+                    <label htmlFor="title">Memory title:</label>
+                    <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayMemory.title} required></input>
+                    <label htmlFor="contents">Contents:</label>
+                    <textarea id="contents-input" name="contents" value={formData.contents} onChange={handleChange} placeholder={displayMemory.contents} required></textarea>
+                    <button type="submit">Save</button>
+                </form>
+            </div>}
         </>
     );
 }

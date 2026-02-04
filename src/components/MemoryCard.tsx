@@ -6,7 +6,6 @@ export function MemoryCard( { memory }: {memory: Memory}) {
     return (
         <div>
             <Link to={`/memory/${memory._id}`}>{memory.title}</Link>
-            <p>Contents: {memory.contents}</p>
             {(memory.image) && <img src={memory.image}></img>}
         </div>
     )
