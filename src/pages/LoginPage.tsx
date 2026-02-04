@@ -13,7 +13,8 @@ export function LoginPage() {
     const [registrationFormData, setRegistrationFormData] = useState<RegistrationFormData>({
         username: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     });
 
     if (!authContext) {
@@ -49,38 +50,45 @@ export function LoginPage() {
 
     const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        register(registrationFormData.username, registrationFormData.email, registrationFormData.password);
-        setIsRegistered(true);
+        if (registrationFormData.password != registrationFormData.confirmPassword) {
+            alert("Passwords must match");
+        } else {
+            register(registrationFormData.username, registrationFormData.email, registrationFormData.password);
+            setIsRegistered(true);
+        }
     };
 
     const handleClick = () => {
-        setIsRegistered(false);
+        setIsRegistered(prevIsRegistered => (prevIsRegistered === false ? true : false));
     }
 
     return (
         <>
-   
-                <div className="login-container">
-                    {isRegistered && <form className="login-form" onSubmit={handleLogIn}>
-                        <label htmlFor="email">Email Address:</label>
-                        <input id="email-input" type="email" name="email" value={logInFormData.email} onChange={handleLogInChange} placeholder="Enter email" required></input>
-                        <label htmlFor="password">Task description:</label>
-                        <input id="password-input" type="text" name="password" value={logInFormData.password} onChange={handleLogInChange} placeholder="Enter password" required></input>
-                        <button type="submit">Log In</button>
-                    </form>}
-                    {!isRegistered && <form className="login-form" onSubmit={handleRegister}>
-                        <label htmlFor="username">Username:</label>
-                        <input id="username-input" type="text" name="username" value={registrationFormData.username} onChange={handleRegisterChange} placeholder="Enter username" required></input>
-                        <label htmlFor="email">Email Address:</label>
-                        <input id="email-input" type="email" name="email" value={registrationFormData.email} onChange={handleRegisterChange} placeholder="Enter email" required></input>
-                        <label htmlFor="password">Password:</label>
-                        <input id="password-input" type="text" name="password" value={registrationFormData.password} onChange={handleRegisterChange} placeholder="Enter password" required></input>
-                        <button type="submit">Register</button>
-                    </form>}
-                </div>
-                <div id="registration">
+
+            <div className="login-container">
+                {isRegistered && <form className="login-form" onSubmit={handleLogIn}>
+                    <label htmlFor="email">Email Address:</label>
+                    <input id="email-input" type="email" name="email" value={logInFormData.email} onChange={handleLogInChange} placeholder="Enter email" required></input>
+                    <label htmlFor="password">Task description:</label>
+                    <input id="password-input" type="text" name="password" value={logInFormData.password} onChange={handleLogInChange} placeholder="Enter password" required></input>
+                    <button type="submit">Log In</button>
+                </form>}
+                {!isRegistered && <form className="login-form" onSubmit={handleRegister}>
+                    <label htmlFor="username">Username:</label>
+                    <input id="username-input" type="text" name="username" value={registrationFormData.username} onChange={handleRegisterChange} placeholder="Enter username" required></input>
+                    <label htmlFor="email">Email Address:</label>
+                    <input id="email-input" type="email" name="email" value={registrationFormData.email} onChange={handleRegisterChange} placeholder="Enter email" required></input>
+                    <label htmlFor="password">Password:</label>
+                    <input id="password-input" type="password" name="password" value={registrationFormData.password} onChange={handleRegisterChange} placeholder="Enter password" required></input>
+                    <label htmlFor="confirm-password">Confirm Password:</label>
+                    <input id="confirm-password-input" type="password" name="confirmPassword" value={registrationFormData.confirmPassword} onChange={handleRegisterChange} placeholder="Reenter password" required></input>
+                    <button type="submit">Register</button>
+                </form>}
+            </div>
+            <div id="registration">
                 <label>Not Registered?</label>
                 <button onClick={() => handleClick()}>Reigster Here</button>
+                {(!isRegistered) && <button onClick={() => handleClick()}>Log In</button>}
             </div>
         </>
     )
