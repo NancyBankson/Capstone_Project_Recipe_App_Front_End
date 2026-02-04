@@ -49,6 +49,12 @@ export function RecipeDetailPage() {
     getOneRecipe(recipeId!).then(data => setDisplayRecipe(data));
   }, []);
 
+  useEffect(() => {
+     setDisplayRecipe(prevDisplayRecipe => ({
+      ...prevDisplayRecipe, tags: selectedTags
+    }));
+  }, [selectedTags]);
+
   if (!authContext) {
     return (
       <h3>Error</h3>
@@ -88,6 +94,7 @@ export function RecipeDetailPage() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // setSelectedTags([]);
     event.preventDefault();
     editRecipe(formData);
     setFormData({
@@ -101,7 +108,7 @@ export function RecipeDetailPage() {
       tags: selectedTags,
       source: ''
     })
-    setIsVisible(false);
+    setIsVisible(true);
   };
 
   const handleDelete = () => {
@@ -142,7 +149,8 @@ export function RecipeDetailPage() {
           <label htmlFor="title">Recipe title:</label>
           <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayRecipe.title} required></input>
           <label htmlFor="category">Category:</label>
-          <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange}>
+          <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange} required>
+            <option value="">Select category</option>
             <option value="Breakfast">Breakfast</option>
             <option value="Side Dish">Side Dish</option>
             <option value="Main Dish">Main Dish</option>
@@ -157,7 +165,7 @@ export function RecipeDetailPage() {
           <label htmlFor="tags">Tags:</label>
           {tags.map((tag) => (
             <label key={tag}>
-              <input type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
+              <input id="checkbox" type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
               {tag}
             </label>
           ))}
