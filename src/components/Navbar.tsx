@@ -14,7 +14,7 @@ export function Navbar() {
         )
     }
 
-    const { logout, isAuthenticated } = authContext;
+    const { logout, isAuthenticated, user } = authContext;
 
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //     // Update state when the input changes
@@ -50,7 +50,8 @@ export function Navbar() {
                 <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Enter recipe"></input>
                 <button type="submit">Submit</button>
             </form> */}
-                <div>
+                <div id="log-area">
+                    {(isAuthenticated) && <h4>Welcome, {user.username}</h4>}
                     {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}
                     {(isAuthenticated) && <button onClick={() => handleClick()}>Log Out</button>}
                 </div>

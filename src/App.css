@@ -48,6 +48,12 @@ nav {
   justify-content: space-between;
 }
 
+#log-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 nav label {
   margin: 0 10px 0 30px;
 }

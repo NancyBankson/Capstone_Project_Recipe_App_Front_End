@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
@@ -11,12 +11,18 @@ import { AddRecipePage } from './pages/AddRecipePage';
 import { AddMemoryPage } from './pages/AddMemoryPage';
 import { AuthContext } from './context/AuthContext';
 import { NotFoundPage } from './pages/NotFoundPage';
+import type { User } from './types/types';
 import './App.css'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState("");
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<User>({
+    _id: '',
+    username: '',
+    email: ''
+  });
+  const navigate = useNavigate();
 
   async function login(email: string, password: string) {
     try {
@@ -25,25 +31,32 @@ function App() {
         email: email,
         password: password
       });
+      console.log(response.data.user);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", response.data.user._id);
       console.log('Logged in', response.data);
       setIsAuthenticated(prevIsAuthenticated => (prevIsAuthenticated === false ? true : false));
       setToken(response.data.token);
       setUser(response.data.user);
+      navigate(`/${response.data.user._id}`); // Navigate to user's page
     } catch (error) {
       console.error('Error logging in', error);
+      alert("Incorrect name or password, try again");
     }
   }
 
-    async function logout() {
+  async function logout() {
     try {
       localStorage.setItem("token", "");
       localStorage.setItem("user", "");
       console.log('Logged out');
       setIsAuthenticated(prevIsAuthenticated => (prevIsAuthenticated === false ? true : false));
       setToken("");
-      setUser([]);
+      setUser({
+        _id: '',
+        username: '',
+        email: ''
+      });
     } catch (error) {
       console.error('Error logging in', error);
     }
@@ -53,20 +66,20 @@ function App() {
     <>
       <div>
         <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout }}>
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/:userId" element={<ContributorPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/add-recipe" element={<AddRecipePage />} />
-          <Route path="/add-memory" element={<AddMemoryPage />} />
-          {/* <Route path="/category/:categoryName" element={<CategoryPage />} />
+          <Navbar />
+          <Routes>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/:userId" element={<ContributorPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/add-recipe" element={<AddRecipePage />} />
+            <Route path="/add-memory" element={<AddMemoryPage />} />
+            {/* <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/favorites" element={<FavoritesPage />} /> */}
-          <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
-          <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-          {/* <Route path="/search" element={<SearchPage />} /> */}
-        </Routes>
+            <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
+            <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+            {/* <Route path="/search" element={<SearchPage />} /> */}
+          </Routes>
         </AuthContext.Provider>
       </div>
     </>

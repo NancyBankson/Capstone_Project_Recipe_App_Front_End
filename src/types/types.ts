@@ -18,6 +18,12 @@ export interface Memory {
     image: string;
 }
 
+export interface User {
+    _id: string;
+    email: string;
+    username: string;
+}
+
 export interface RecipeCardProps {
     recipes: Recipe[] | null;
 }
@@ -57,6 +63,6 @@ export interface AuthContextType {
     isAuthenticated: boolean;
     login: (email: string, password: string) => void;
     logout: () => void;
-    user: string[];
+    user: User;
     token: string;
 }
