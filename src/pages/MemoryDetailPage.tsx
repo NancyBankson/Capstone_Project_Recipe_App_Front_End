@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import type { Memory } from "../types/types";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getOneMemory, editMemory, deleteMemory } from "../utils/recipes-api";
+import { AuthContext } from "../context/AuthContext";
 
 export function MemoryDetailPage() {
+    const authContext = useContext(AuthContext);
     const { memoryId } = useParams();
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -31,6 +33,19 @@ export function MemoryDetailPage() {
     useEffect(() => {
         getOneMemory(memoryId!).then(data => setDisplayMemory(data));
     }, []);
+
+    if (!authContext) {
+        return (
+            <h3>Error</h3>
+        )
+    }
+
+    // Redirect to login page if not authenticated
+    const { isAuthenticated } = authContext;
+    if (!isAuthenticated) {
+        // Redirects to the login page if the condition (isLoggedIn) is false
+        return <Navigate to="/login" replace />;
+    }
 
     const handleClick = () => {
         setIsVisible(false);

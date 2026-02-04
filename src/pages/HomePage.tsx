@@ -41,9 +41,10 @@ export function HomePage() {
 
   return (
     <div>
-      <h2>Recipes</h2>
       <div className='container'>
+        <h2>Recipes</h2>
         <RecipeList recipes={recipes} />
+        <h2>Memories</h2>
         <MemoryList memories={memories} />
         {/* {data?.categories.map((category) => {
           return (

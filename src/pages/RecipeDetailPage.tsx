@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import type { Recipe } from "../types/types";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getOneRecipe, editRecipe, deleteRecipe } from "../utils/recipes-api";
+import { AuthContext } from "../context/AuthContext";
 
 export function RecipeDetailPage() {
+  const authContext = useContext(AuthContext);
   const { recipeId } = useParams();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -18,7 +20,7 @@ export function RecipeDetailPage() {
     image: "image",
     tags: ["tags"],
     source: "source"
-  }); 
+  });
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [formData, setFormData] = useState<Recipe>(displayRecipe);
 
@@ -45,6 +47,19 @@ export function RecipeDetailPage() {
   useEffect(() => {
     getOneRecipe(recipeId!).then(data => setDisplayRecipe(data));
   }, []);
+
+  if (!authContext) {
+    return (
+      <h3>Error</h3>
+    )
+  }
+
+  // Redirect to login page if not authenticated
+  const { isAuthenticated } = authContext;
+  if (!isAuthenticated) {
+    // Redirects to the login page if the condition (isLoggedIn) is false
+    return <Navigate to="/login" replace />;
+  }
 
   const handleClick = () => {
     setIsVisible(false);
@@ -86,7 +101,7 @@ export function RecipeDetailPage() {
   };
 
   const handleDelete = () => {
-     deleteRecipe(recipeId!);
+    deleteRecipe(recipeId!);
   };
 
   return (

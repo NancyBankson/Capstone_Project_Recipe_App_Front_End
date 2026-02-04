@@ -1,5 +1,19 @@
 import axios from "axios";
+// import { useContext } from "react";
 import type { RecipeFormData, Recipe, MemoryFormData, Memory } from "../types/types";
+// import { AuthContext } from "../context/AuthContext";
+
+// const authContext = useContext(AuthContext);
+
+// if (authContext === null) {
+//      throw new Error('useAuth must be used within an AuthProvider');
+// } 
+
+// const { token } = authContext;
+// console.log(token);
+// console.log(isAuthenticated);
+// console.log(user);
+
 
 export async function getRecipes() {
   try {
@@ -159,20 +173,38 @@ export async function deleteMemory(memoryId: string) {
   }
 }
 
-export async function login(email: string, password: string) {
-  try {
-    console.log(`${import.meta.env.VITE_API_URL}/api/users/login`);
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, {
-      email: email,
-      password: password
-    });
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("user", response.data.user._id);
-    console.log('Logged in', response.data);
-  } catch (error) {
-    console.error('Error logging in', error);
-  }
-}
+// Logic moved to App.tsx for AuthContext
+// export async function login(email: string, password: string) {
+//   try {
+//     console.log(`${import.meta.env.VITE_API_URL}/api/users/login`);
+//     const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, {
+//       email: email,
+//       password: password
+//     });
+//     localStorage.setItem("token", response.data.token);
+//     localStorage.setItem("user", response.data.user._id);
+//     console.log('Logged in', response.data);
+//   } catch (error) {
+//     console.error('Error logging in', error);
+//   }
+// }
+
+// export async function logout() {
+//   try {
+//     let token = localStorage.getItem("token");
+//     console.log(`${import.meta.env.VITE_API_URL}/api/users/logout`);
+//     const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/logout`, {
+//       headers: {
+//         'Authorization': token
+//       }
+//     });
+//     localStorage.setItem("token", "");
+//     localStorage.setItem("user", "");
+//     console.log('Logged out', response.data);
+//   } catch (error) {
+//     console.error('Error logging out', error);
+//   }
+// }
 
 export async function register(username: string, email: string, password: string) {
   try {

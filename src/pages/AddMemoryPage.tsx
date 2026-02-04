@@ -1,14 +1,30 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import type { MemoryFormData } from "../types/types";
 import { createNewMemory } from "../utils/recipes-api";
+import { AuthContext } from "../context/AuthContext";
 
 export function AddMemoryPage() {
+    const authContext = useContext(AuthContext);
     const [formData, setFormData] = useState<MemoryFormData>({
         title: '',
         contents: '',
         image: ''
     });
 
+    if (!authContext) {
+        return (
+            <h3>Error</h3>
+        )
+    }
+
+    // Redirect to login page if not authenticated
+    const { isAuthenticated } = authContext;
+    if (!isAuthenticated) {
+        // Redirects to the login page if the condition (isLoggedIn) is false
+        return <Navigate to="/login" replace />;
+    }
+    
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target; // Destructure name and value
 

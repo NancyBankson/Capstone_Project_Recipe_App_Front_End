@@ -1,10 +1,20 @@
 import { NavLink, useSearchParams, useNavigate } from "react-router-dom"
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export function Navbar() {
     const [searchValue, setSearchValue] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
+    const authContext = useContext(AuthContext);
     const navigate = useNavigate();
+
+   if (!authContext) {
+        return (
+            <h3>Error</h3>
+        )
+    }
+
+    const { logout } = authContext;
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // Update state when the input changes
@@ -16,6 +26,10 @@ export function Navbar() {
         setSearchParams({ query: searchValue });
         navigate(`/search?query=${searchValue}`);
         setSearchValue("");
+    };
+
+    const handleClick = () => {
+        logout();
     };
 
     // Add logic so userId can be used for link to My Page
@@ -35,6 +49,7 @@ export function Navbar() {
                 <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Enter recipe"></input>
                 <button type="submit">Submit</button>
             </form>
+            <button onClick={() => handleClick()}>Log Out</button>
         </nav>
     )
 }

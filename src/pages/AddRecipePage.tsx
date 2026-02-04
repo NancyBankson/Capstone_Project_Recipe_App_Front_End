@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import type { RecipeFormData } from "../types/types";
 import { createNewRecipe } from "../utils/recipes-api";
+import { AuthContext } from "../context/AuthContext";
 
 export function AddRecipePage() {
+    const authContext = useContext(AuthContext);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [formData, setFormData] = useState<RecipeFormData>({
         title: '',
@@ -22,6 +25,19 @@ export function AddRecipePage() {
             tags: selectedTags    // Update changed field using computed property name
         }));
     }, [selectedTags]);
+
+    if (!authContext) {
+        return (
+            <h3>Error</h3>
+        )
+    }
+
+    // Redirect to login page if not authenticated
+    const { isAuthenticated } = authContext;
+    if (!isAuthenticated) {
+        // Redirects to the login page if the condition (isLoggedIn) is false
+        return <Navigate to="/login" replace />;
+    }
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;

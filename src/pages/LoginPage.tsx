@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { login, register } from "../utils/recipes-api";
+import { useContext, useState } from "react";
+import { register } from "../utils/recipes-api";
 import type { LogInFormData, RegistrationFormData } from "../types/types";
+import { AuthContext } from "../context/AuthContext";
 
 export function LoginPage() {
+    const authContext = useContext(AuthContext);
     const [isRegistered, setIsRegistered] = useState(true);
     const [logInFormData, setLogInFormData] = useState<LogInFormData>({
         email: '',
@@ -13,6 +15,14 @@ export function LoginPage() {
         email: '',
         password: ''
     });
+
+    if (!authContext) {
+        return (
+            <h3>Error</h3>
+        )
+    }
+
+    const { login } = authContext;
 
     const handleLogInChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target; // Destructure name and value

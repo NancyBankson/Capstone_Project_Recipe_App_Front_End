@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './pages/HomePage';
@@ -7,13 +9,49 @@ import { RecipeDetailPage } from './pages/RecipeDetailPage';
 import { MemoryDetailPage } from './pages/MemoryDetailPage';
 import { AddRecipePage } from './pages/AddRecipePage';
 import { AddMemoryPage } from './pages/AddMemoryPage';
+import { AuthContext } from './context/AuthContext';
 import './App.css'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState([]);
+
+  async function login(email: string, password: string) {
+    try {
+      console.log(`${import.meta.env.VITE_API_URL}/api/users/login`);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, {
+        email: email,
+        password: password
+      });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", response.data.user._id);
+      console.log('Logged in', response.data);
+      setIsAuthenticated(prevIsAuthenticated => (prevIsAuthenticated === false ? true : false));
+      setToken(response.data.token);
+      setUser(response.data.user);
+    } catch (error) {
+      console.error('Error logging in', error);
+    }
+  }
+
+    async function logout() {
+    try {
+      localStorage.setItem("token", "");
+      localStorage.setItem("user", "");
+      console.log('Logged out');
+      setIsAuthenticated(prevIsAuthenticated => (prevIsAuthenticated === false ? true : false));
+      setToken("");
+      setUser([]);
+    } catch (error) {
+      console.error('Error logging in', error);
+    }
+  }
 
   return (
     <>
       <div>
+        <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout }}>
         <Navbar />
         <Routes>
           <Route path="/home" element={<HomePage />} />
@@ -27,6 +65,7 @@ function App() {
           <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
           {/* <Route path="/search" element={<SearchPage />} /> */}
         </Routes>
+        </AuthContext.Provider>
       </div>
     </>
   )

@@ -52,3 +52,11 @@ export interface MemoryFormData {
     contents: string;
     image: string;
 }
+
+export interface AuthContextType {
+    isAuthenticated: boolean;
+    login: (email: string, password: string) => void;
+    logout: () => void;
+    user: string[];
+    token: string;
+}
