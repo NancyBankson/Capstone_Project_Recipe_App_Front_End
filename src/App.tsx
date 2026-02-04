@@ -10,6 +10,7 @@ import { MemoryDetailPage } from './pages/MemoryDetailPage';
 import { AddRecipePage } from './pages/AddRecipePage';
 import { AddMemoryPage } from './pages/AddMemoryPage';
 import { AuthContext } from './context/AuthContext';
+import { NotFoundPage } from './pages/NotFoundPage';
 import './App.css'
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
           <Route path="/favorites" element={<FavoritesPage />} /> */}
           <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
           <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
+          <Route path="*" element={<NotFoundPage />} />
           {/* <Route path="/search" element={<SearchPage />} /> */}
         </Routes>
         </AuthContext.Provider>
