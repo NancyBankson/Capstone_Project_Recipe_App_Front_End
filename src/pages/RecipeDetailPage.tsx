@@ -23,6 +23,7 @@ export function RecipeDetailPage() {
     source: "source"
   });
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [tagString, setTagString] = useState("");
   const [formData, setFormData] = useState<Recipe>(displayRecipe);
 
   const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert'];
@@ -54,6 +55,14 @@ export function RecipeDetailPage() {
       ...prevDisplayRecipe, tags: selectedTags
     }));
   }, [selectedTags]);
+
+  useEffect(() => {
+    let newTagString: string = displayRecipe.tags[0];
+    for (let i = 1; i < displayRecipe.tags.length; i++) {
+      newTagString = newTagString + ", " + displayRecipe.tags[i];
+    }
+    setTagString(newTagString);
+  }, [displayRecipe]);
 
   if (!authContext) {
     return (
@@ -135,13 +144,13 @@ export function RecipeDetailPage() {
           </div>
           <div className="recipe-body">
             <div className="ingredients">
-              <h2>Ingredients</h2>
+              <h2 className="header-text">Ingredients</h2>
               <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.ingredients}</p>
             </div>
-            <h2>Instructions</h2>
+            <h2 className="header-text">Instructions</h2>
             <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.instructions}</p>
-            <h3>Category: {displayRecipe.category}</h3>
-            <h3>Tags: {displayRecipe.tags}</h3>
+            <h3 className="header-text">Category: {displayRecipe.category}</h3>
+            <h3 className="header-text">Tags: {tagString}</h3>
             {(displayRecipe.source) && <h3>Source: <a href={displayRecipe.source}>{displayRecipe.source}</a></h3>}
           </div>
         </div>

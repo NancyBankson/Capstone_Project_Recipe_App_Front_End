@@ -70,6 +70,25 @@ img {
   border-radius: 15px;
 }
 
+#home-container, #contributor-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.list-container {
+  border: 1px solid transparent;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  min-width: 365px;
+  padding: 20px;
+  text-wrap: wrap;
+  line-height: 2rem;
+}
+
+.list-container h2 {
+  padding: 10px 0;
+}
+
 #login-top-container {
   display: flex;
   flex-direction: column;
@@ -103,12 +122,8 @@ img {
   background-color: #e6e4de;
 }
 
-.recipe-body, .memory-body h2 {
-  margin-bottom: 10px;
-}
-
-.recipe-body, .memory-body h3 {
-  margin: 15px 0;
+.header-text {
+  margin: 20px 0;
 }
 
 #registration {

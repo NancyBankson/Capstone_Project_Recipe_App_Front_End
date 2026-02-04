@@ -41,11 +41,15 @@ export function HomePage() {
 
   return (
     <div>
-      <div className='container'>
-        <h2>Recipes</h2>
-        <RecipeList recipes={recipes} />
-        <h2>Memories</h2>
-        <MemoryList memories={memories} />
+      <div id='home-container'>
+        <div className='list-container'>
+          <h2>Recipes</h2>
+          <RecipeList recipes={recipes} />
+        </div>
+        <div className='list-container'>
+          <h2>Memories</h2>
+          <MemoryList memories={memories} />
+        </div>
         {/* {data?.categories.map((category) => {
           return (
             <div className="category-card" key={category.idCategory}>
@@ -55,7 +59,9 @@ export function HomePage() {
             </div>
           );
         })} */}
-        <h2>Contributors</h2>
+        <div className='list-container'>
+          <h2>Contributors</h2>
+        </div>
       </div>
     </div>
   );

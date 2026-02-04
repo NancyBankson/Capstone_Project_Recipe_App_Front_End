@@ -52,10 +52,12 @@ export function ContributorPage() {
     }
 
     return (
-        <div>
-            <div className='container'>
+        <div id="contributor-container">
+            <div className='list-container'>
                 <h2>Recipes</h2>
                 <RecipeList recipes={filteredRecipes} />
+            </div>
+            <div className='list-container'>
                 <h2>Memories</h2>
                 <MemoryList memories={filteredMemories} />
             </div>
