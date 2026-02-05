@@ -69,8 +69,8 @@ export function LoginPage() {
                 {isRegistered && <form className="login-form" onSubmit={handleLogIn}>
                     <label htmlFor="email">Email Address:</label>
                     <input id="email-input" type="email" name="email" value={logInFormData.email} onChange={handleLogInChange} placeholder="Enter email" required></input>
-                    <label htmlFor="password">Task description:</label>
-                    <input id="password-input" type="text" name="password" value={logInFormData.password} onChange={handleLogInChange} placeholder="Enter password" required></input>
+                    <label htmlFor="password">Enter Password:</label>
+                    <input id="password-input" type="password" name="password" value={logInFormData.password} onChange={handleLogInChange} placeholder="Enter password" required></input>
                     <button type="submit">Log In</button>
                 </form>}
                 {!isRegistered && <form className="login-form" onSubmit={handleRegister}>

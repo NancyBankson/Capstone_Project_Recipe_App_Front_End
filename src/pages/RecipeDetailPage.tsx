@@ -139,8 +139,6 @@ export function RecipeDetailPage() {
           <div className="recipe-head">
             {(displayRecipe.image) && <img src={displayRecipe.image} />}
             <h1>{displayRecipe.title}</h1>
-
-            {/* <button onClick={handleFavorite}>{isFavorite ? "Remove from Favorites" : "Add to Favorites"}</button> */}
           </div>
           <div className="recipe-body">
             <div className="ingredients">
