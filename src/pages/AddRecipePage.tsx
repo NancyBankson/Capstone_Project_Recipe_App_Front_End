@@ -26,6 +26,8 @@ export function AddRecipePage() {
         Dessert: false
     });
 
+    console.log(checkboxes);
+
     const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert'];
 
     useEffect(() => {
