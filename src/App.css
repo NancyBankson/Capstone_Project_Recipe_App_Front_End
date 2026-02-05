@@ -178,3 +178,19 @@ textarea {
 #checkbox {
   min-height: 0;
 }
+
+@media (min-width: 751px) {
+
+  #home-container {
+    flex-direction: row;
+  }
+
+}
+
+@media (max-width: 750px) {
+
+  #home-container {
+    flex-direction: column;
+  }
+ 
+  }

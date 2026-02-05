@@ -1,8 +1,3 @@
-// import type { Categories } from '../../types';
-// import { useFetch } from '../../hooks/useFetch';
-// import { Link } from 'react-router-dom';
-// import { Spinner } from '../../components/Spinner';
-// import { ErrorMessage } from '../../components/ErrorMessage';
 import { useState, useEffect } from 'react';
 import { getRecipes, getMemories } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
@@ -20,25 +15,6 @@ export function HomePage() {
     getMemories().then(data => setMemories(data));
   }, []);
 
-  //   const { data, loading, error } = useFetch<{ categories: Categories[] }>("https://www.themealdb.com/api/json/v1/1/categories.php");
-
-  //   if (loading) {
-  //     return (
-  //       <div className="loading">
-  //         Loading recipes...
-  //         <Spinner />
-  //       </div>
-  //     )
-  //   }
-  //   if (error) {
-  //     return (
-  //       <div>
-  //         <ErrorMessage />
-  //         Error: {error.message}
-  //       </div>
-  //     )
-  //   }
-
   return (
     <div>
       <div id='home-container'>
@@ -49,18 +25,6 @@ export function HomePage() {
         <div className='list-container'>
           <h2>Memories</h2>
           <MemoryList memories={memories} />
-        </div>
-        {/* {data?.categories.map((category) => {
-          return (
-            <div className="category-card" key={category.idCategory}>
-              <img src={category.strCategoryThumb} />
-              <Link to={`/category/${category.strCategory}`}>{category.strCategory}</Link>
-              <p>{category.strCategoryDescription}</p>
-            </div>
-          );
-        })} */}
-        <div className='list-container'>
-          <h2>Contributors</h2>
         </div>
       </div>
     </div>
