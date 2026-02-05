@@ -180,6 +180,8 @@ export function RecipeDetailPage() {
               {tag}
             </label>
           ))}
+          <label htmlFor="image">Image:</label>
+                <input id="image-input" type="text" name="image" value={formData.image} onChange={handleChange} placeholder={displayRecipe.image}></input>
           <label htmlFor="source">Source:</label>
           <input id="source-input" type="text" name="source" value={formData.source} onChange={handleChange} placeholder={displayRecipe.source}></input>
           <button type="submit">Save</button>

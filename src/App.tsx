@@ -11,6 +11,7 @@ import { AddRecipePage } from './pages/AddRecipePage';
 import { AddMemoryPage } from './pages/AddMemoryPage';
 import { AuthContext } from './context/AuthContext';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { RootPage } from './pages/RootPage';
 import type { User } from './types/types';
 import './App.css'
 
@@ -68,6 +69,7 @@ function App() {
         <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout }}>
           <Navbar />
           <Routes>
+            <Route path="/" element={<RootPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/:userId" element={<ContributorPage />} />
             <Route path="/login" element={<LoginPage />} />

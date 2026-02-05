@@ -3,8 +3,24 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
+}
+
+#root-page {
+  text-align: center;
+  background-image: url('/Fruit.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+#page-title {
+  font-family: "Playwrite CA", cursive;
+  font-size: 5rem;
+    color: white;
+    padding-top: 60px;
 }
 
 h1 {
@@ -25,10 +41,12 @@ button {
   min-width: 100px;
   max-width: 150px;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
 ul {
   list-style: none;
   display: flex;
@@ -70,7 +88,8 @@ img {
   border-radius: 15px;
 }
 
-#home-container, #contributor-container {
+#home-container,
+#contributor-container {
   display: flex;
   justify-content: space-evenly;
 }
@@ -85,6 +104,10 @@ img {
   line-height: 2rem;
 }
 
+.list-container img {
+  max-width: 325px;
+}
+
 .list-container h2 {
   padding: 10px 0;
 }
@@ -94,12 +117,16 @@ img {
   flex-direction: column;
 }
 
-.recipe-container, .memory-container, .login-container, .container {
+.recipe-container,
+.memory-container,
+.login-container,
+.container {
   display: flex;
   justify-content: center;
 }
 
-#recipe-buttons, #memory-buttons {
+#recipe-buttons,
+#memory-buttons {
   display: flex;
   justify-content: start;
   width: 75%;
@@ -107,7 +134,11 @@ img {
   margin-bottom: 15px;
 }
 
-#add-recipe-form, #add-memory-form, .login-form, .recipe-full, .memory-full  {
+#add-recipe-form,
+#add-memory-form,
+.login-form,
+.recipe-full,
+.memory-full {
   display: flex;
   flex-direction: column;
   border: 1px solid transparent;
@@ -118,7 +149,8 @@ img {
   gap: 10px;
 }
 
-.recipe-full, .memory-full {
+.recipe-full,
+.memory-full {
   background-color: #e6e4de;
 }
 
@@ -134,7 +166,9 @@ img {
   gap: 10px;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   min-height: 25px;
   border: 1px solid transparent;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
