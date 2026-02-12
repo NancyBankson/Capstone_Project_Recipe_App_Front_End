@@ -67,3 +67,8 @@ export interface AuthContextType {
     user: User;
     token: string;
 }
+
+export interface SearchContextType {
+    onSearchChange: (text: string) => void;
+    searchValue?: string;
+}

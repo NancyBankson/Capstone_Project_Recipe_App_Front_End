@@ -14,9 +14,11 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { RootPage } from './pages/RootPage';
 import type { User } from './types/types';
 import './App.css'
+import { SearchContext } from './context/SearchContext';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const [token, setToken] = useState("");
   const [user, setUser] = useState<User>({
     _id: '',
@@ -24,6 +26,10 @@ function App() {
     email: ''
   });
   const navigate = useNavigate();
+
+  function onSearchChange(searchText: string) {
+    setSearchValue(searchText);
+  }
 
   async function login(email: string, password: string) {
     try {
@@ -67,21 +73,23 @@ function App() {
     <>
       <div>
         <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout }}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<RootPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/:userId" element={<ContributorPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/add-recipe" element={<AddRecipePage />} />
-            <Route path="/add-memory" element={<AddMemoryPage />} />
-            {/* <Route path="/category/:categoryName" element={<CategoryPage />} />
+          <SearchContext.Provider value={{ onSearchChange, searchValue }}>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<RootPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/:userId" element={<ContributorPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/add-recipe" element={<AddRecipePage />} />
+              <Route path="/add-memory" element={<AddMemoryPage />} />
+              {/* <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/favorites" element={<FavoritesPage />} /> */}
-            <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
-            <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-            {/* <Route path="/search" element={<SearchPage />} /> */}
-          </Routes>
+              <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
+              <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+              {/* <Route path="/search" element={<SearchPage />} /> */}
+            </Routes>
+          </SearchContext.Provider>
         </AuthContext.Provider>
       </div>
     </>
