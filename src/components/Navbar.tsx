@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
@@ -6,6 +6,7 @@ import { SearchContext } from "../context/SearchContext";
 export function Navbar() {
     const authContext = useContext(AuthContext);
     const searchContext = useContext(SearchContext);
+    const navigate = useNavigate();
 
     if (!authContext) {
         return (
@@ -25,6 +26,7 @@ export function Navbar() {
 
     const handleClick = () => {
         logout();
+        navigate("/login"); // Navigate to login page
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,8 +46,7 @@ export function Navbar() {
                     <li><NavLink to="/add-recipe" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Recipe</NavLink></li>
                     <li><NavLink to="/add-memory" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Memory</NavLink></li>
                 </ul>
-                <label htmlFor="search">Search</label>
-                <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Enter recipe"></input>
+                <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Search recipes"></input>
                 <div id="log-area">
                     {(isAuthenticated) && <h4>Welcome, {user.username}</h4>}
                     {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}

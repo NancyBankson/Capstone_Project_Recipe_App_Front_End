@@ -7,7 +7,7 @@ import type { Recipe } from '../types/types';
 
 export function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [filteredRecipes, setFileteredRecipes] = useState<Recipe[]>(recipes);
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>(recipes);
   const [memories, setMemories] = useState(null);
   const searchContext = useContext(SearchContext);
 
@@ -27,15 +27,19 @@ export function HomePage() {
     getMemories().then(data => setMemories(data));
   }, []);
 
+  useEffect(() => {
+    setFilteredRecipes(recipes);
+  }, [recipes]);
+
     useEffect(() => {
-    const filterRecipes = recipes.filter(recipe => {
-      if (searchValue === "") {
-        return recipe;
-      } else if (recipe.title.toLowerCase().includes(searchValue!.toLowerCase())) {
-        return recipe;
-      }
-    })
-    setFileteredRecipes(filterRecipes);
+        const filterRecipes = recipes.filter(recipe => {
+            if (searchValue === "") {
+                return recipe;
+            } else if (recipe.title.toLowerCase().includes(searchValue!.toLowerCase())) {
+                return recipe;
+            }
+        })
+        setFilteredRecipes(filterRecipes);
     }, [searchValue]);
 
   return (
