@@ -19,6 +19,7 @@ import { SearchContext } from './context/SearchContext';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [filterValue, setFilterValue] = useState("");
   const [token, setToken] = useState("");
   const [user, setUser] = useState<User>({
     _id: '',
@@ -29,6 +30,10 @@ function App() {
 
   function onSearchChange(searchText: string) {
     setSearchValue(searchText);
+  }
+
+   function onFilterChange(filterText: string) {
+    setFilterValue(filterText);
   }
 
   async function login(email: string, password: string) {
@@ -73,7 +78,7 @@ function App() {
     <>
       <div>
         <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout }}>
-          <SearchContext.Provider value={{ onSearchChange, searchValue }}>
+          <SearchContext.Provider value={{ onSearchChange, searchValue, onFilterChange, filterValue }}>
             <Navbar />
             <Routes>
               <Route path="/" element={<RootPage />} />

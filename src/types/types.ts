@@ -70,5 +70,7 @@ export interface AuthContextType {
 
 export interface SearchContextType {
     onSearchChange: (text: string) => void;
+    onFilterChange: (text: string) => void;
     searchValue?: string;
+    filterValue?: string;
 }

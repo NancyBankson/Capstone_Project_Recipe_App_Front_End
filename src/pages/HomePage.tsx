@@ -17,7 +17,7 @@ export function HomePage() {
     )
   }
 
-  const { searchValue } = searchContext;
+  const { searchValue, filterValue } = searchContext;
 
   useEffect(() => {
     getRecipes().then(data => setRecipes(data));
@@ -31,16 +31,27 @@ export function HomePage() {
     setFilteredRecipes(recipes);
   }, [recipes]);
 
-    useEffect(() => {
-        const filterRecipes = recipes.filter(recipe => {
-            if (searchValue === "") {
-                return recipe;
-            } else if (recipe.title.toLowerCase().includes(searchValue!.toLowerCase())) {
-                return recipe;
-            }
-        })
-        setFilteredRecipes(filterRecipes);
-    }, [searchValue]);
+  useEffect(() => {
+    const filterRecipes = recipes.filter(recipe => {
+      if (searchValue === "") {
+        return recipe;
+      } else if (recipe.title.toLowerCase().includes(searchValue!.toLowerCase())) {
+        return recipe;
+      }
+    })
+    setFilteredRecipes(filterRecipes);
+  }, [searchValue]);
+
+  useEffect(() => {
+    const filterRecipes = recipes.filter(recipe => {
+      if (filterValue === "") {
+        return recipe;
+      } else if (recipe.category === filterValue) {
+        return recipe;
+      }
+    })
+    setFilteredRecipes(filterRecipes);
+  }, [filterValue]);
 
   return (
     <div>

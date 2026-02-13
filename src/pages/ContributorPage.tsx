@@ -29,7 +29,7 @@ export function ContributorPage() {
         )
     }
 
-    const { searchValue } = searchContext;
+    const { searchValue, filterValue } = searchContext;
 
     // Redirect to login page if not authenticated
     const { isAuthenticated } = authContext;
@@ -72,6 +72,17 @@ export function ContributorPage() {
         })
         setSearchRecipes(filterRecipes);
     }, [filteredRecipes, searchValue]);
+
+    useEffect(() => {
+        const filterRecipes = filteredRecipes.filter(recipe => {
+            if (filterValue === "") {
+                return recipe;
+            } else if (recipe.category === filterValue) {
+                return recipe;
+            }
+        })
+        setSearchRecipes(filterRecipes);
+    }, [filteredRecipes, filterValue]);
 
     return (
         <div id="contributor-container">

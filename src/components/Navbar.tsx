@@ -20,7 +20,7 @@ export function Navbar() {
         )
     }
 
-    const { onSearchChange, searchValue } = searchContext;
+    const { onSearchChange, onFilterChange, searchValue, filterValue } = searchContext;
 
     const { logout, isAuthenticated, user } = authContext;
 
@@ -32,6 +32,11 @@ export function Navbar() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newText = event.target.value;
         onSearchChange(newText);
+    }
+
+      const handleFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newText = event.target.value;
+        onFilterChange(newText);
     }
 
     // Add logic so userId can be used for link to My Page
@@ -47,6 +52,15 @@ export function Navbar() {
                     <li><NavLink to="/add-memory" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Memory</NavLink></li>
                 </ul>
                 <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Search recipes"></input>
+                <select id="category-input" name="category" value={filterValue} onChange={handleFilter} required>
+                    <option value="">Filter by Category</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Side Dish">Side Dish</option>
+                    <option value="Main Dish">Main Dish</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Baked Good">Baked Good</option>
+                </select>
                 <div id="log-area">
                     {(isAuthenticated) && <h4>Welcome, {user.username}</h4>}
                     {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}
