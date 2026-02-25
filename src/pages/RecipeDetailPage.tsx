@@ -3,6 +3,7 @@ import type { Recipe } from "../types/types";
 import { useState, useEffect, useContext } from 'react';
 import { getOneRecipe, editRecipe, deleteRecipe } from "../utils/recipes-api";
 import { AuthContext } from "../context/AuthContext";
+import { Modal } from "../components/Modal";
 
 export function RecipeDetailPage() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export function RecipeDetailPage() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [userId, setUserId] = useState<string | null>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [displayRecipe, setDisplayRecipe] = useState<Recipe>({
     _id: "12345",
     user: "user",
@@ -128,10 +130,18 @@ export function RecipeDetailPage() {
 
   return (
     <>
+    <Modal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+    >
+      <p>Are you sure?</p>
+      <button onClick={() => handleDelete()}>Delete</button>
+      <button onClick={() => setIsModalOpen(false)}>Return</button>
+    </Modal>
     <div className="container">
        <div id="recipe-buttons">
         {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
-        {(isAuthorized) && <button onClick={() => handleDelete()}>Delete</button>}
+        {(isAuthorized) && <button onClick={() => setIsModalOpen(true)}>Delete</button>}
       </div>
     </div>     
       {(isVisible) && <div className='container'>

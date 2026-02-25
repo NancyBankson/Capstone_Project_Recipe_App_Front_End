@@ -74,3 +74,9 @@ export interface SearchContextType {
     searchValue?: string;
     filterValue?: string;
 }
+
+export interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+}
