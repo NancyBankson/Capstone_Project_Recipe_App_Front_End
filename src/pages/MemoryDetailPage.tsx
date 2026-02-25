@@ -3,12 +3,14 @@ import type { Memory } from "../types/types";
 import { useState, useEffect, useContext } from 'react';
 import { getOneMemory, editMemory, deleteMemory } from "../utils/recipes-api";
 import { AuthContext } from "../context/AuthContext";
+import { Modal } from "../components/Modal";
 
 export function MemoryDetailPage() {
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     const { memoryId } = useParams();
     const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [userId, setUserId] = useState<string | null>("");
     const [displayMemory, setDisplayMemory] = useState<Memory>({
@@ -60,11 +62,11 @@ export function MemoryDetailPage() {
             [name]: value     // Update changed field using computed property name
         }));
         setDisplayMemory(prevDisplayMemory => ({
-            ...prevDisplayMemory, [name]: value  
+            ...prevDisplayMemory, [name]: value
         }));
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         editMemory(formData);
         setFormData({
@@ -85,11 +87,19 @@ export function MemoryDetailPage() {
 
     return (
         <>
-        <div className="container">
-            <div id="memory-buttons">
-                {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
-                {(isAuthorized) && <button onClick={() => handleDelete()}>Delete</button>}
-            </div>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            >
+                <p>Are you sure?</p>
+                <button onClick={() => handleDelete()}>Delete</button>
+                <button onClick={() => setIsModalOpen(false)}>Return</button>
+            </Modal>
+            <div className="container">
+                <div id="memory-buttons">
+                    {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
+                    {(isAuthorized) && <button onClick={() => setIsModalOpen(true)}>Delete</button>}
+                </div>
             </div>
             {(isVisible) && <div className='container'>
                 <div className="memory-full" key={displayMemory._id}>

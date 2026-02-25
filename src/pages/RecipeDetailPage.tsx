@@ -104,7 +104,7 @@ export function RecipeDetailPage() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     // setSelectedTags([]);
     event.preventDefault();
     editRecipe(formData);
