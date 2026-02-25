@@ -53,7 +53,7 @@ export function RecipeDetailPage() {
   }, []);
 
   useEffect(() => {
-     setDisplayRecipe(prevDisplayRecipe => ({
+    setDisplayRecipe(prevDisplayRecipe => ({
       ...prevDisplayRecipe, tags: selectedTags
     }));
   }, [selectedTags]);
@@ -130,71 +130,75 @@ export function RecipeDetailPage() {
 
   return (
     <>
-    <Modal
-      isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
-    >
-      <p>Are you sure?</p>
-      <button onClick={() => handleDelete()}>Delete</button>
-      <button onClick={() => setIsModalOpen(false)}>Return</button>
-    </Modal>
-    <div className="container">
-       <div id="recipe-buttons">
-        {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
-        {(isAuthorized) && <button onClick={() => setIsModalOpen(true)}>Delete</button>}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <p>Are you sure you want to delete this recipe?</p>
+        <button onClick={() => handleDelete()}>Delete</button>
+        <button onClick={() => setIsModalOpen(false)}>Return</button>
+      </Modal >
+      <div className="container">
+        <div id="recipe-buttons">
+          {(isAuthorized) && <button onClick={() => handleClick()}>Edit</button>}
+          {(isAuthorized) && <button onClick={() => setIsModalOpen(true)}>Delete</button>}
+        </div>
       </div>
-    </div>     
-      {(isVisible) && <div className='container'>
-        <div className="recipe-full" key={displayRecipe._id}>
-          <div className="recipe-head">
-            {(displayRecipe.image) && <img src={displayRecipe.image} />}
-            <h1>{displayRecipe.title}</h1>
-          </div>
-          <div className="recipe-body">
-            <div className="ingredients">
-              <h2 className="header-text">Ingredients</h2>
-              <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.ingredients}</p>
+      {
+        (isVisible) && <div className='container'>
+          <div className="recipe-full" key={displayRecipe._id}>
+            <div className="recipe-head">
+              {(displayRecipe.image) && <img src={displayRecipe.image} />}
+              <h1>{displayRecipe.title}</h1>
             </div>
-            <h2 className="header-text">Instructions</h2>
-            <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.instructions}</p>
-            <h3 className="header-text">Category: {displayRecipe.category}</h3>
-            <h3 className="header-text">Tags: {tagString}</h3>
-            {(displayRecipe.source) && <h3>Source: <a href={displayRecipe.source}>{displayRecipe.source}</a></h3>}
+            <div className="recipe-body">
+              <div className="ingredients">
+                <h2 className="header-text">Ingredients</h2>
+                <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.ingredients}</p>
+              </div>
+              <h2 className="header-text">Instructions</h2>
+              <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.instructions}</p>
+              <h3 className="header-text">Category: {displayRecipe.category}</h3>
+              <h3 className="header-text">Tags: {tagString}</h3>
+              {(displayRecipe.source) && <h3>Source: <a href={displayRecipe.source}>{displayRecipe.source}</a></h3>}
+            </div>
           </div>
         </div>
-      </div>}
-      {(!isVisible) && <div className="recipe-container">
-        <form id="add-recipe-form" onSubmit={handleSubmit}>
-          <label htmlFor="title">Recipe title:</label>
-          <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayRecipe.title} required></input>
-          <label htmlFor="category">Category:</label>
-          <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange} required>
-            <option value="">Select category</option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Side Dish">Side Dish</option>
-            <option value="Main Dish">Main Dish</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Appetizer">Appetizer</option>
-            <option value="Baked Good">Baked Good</option>
-          </select>
-          <label htmlFor="ingredients">Ingredients:</label>
-          <textarea id="ingredients-input" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder={displayRecipe.ingredients} required></textarea>
-          <label htmlFor="instructions">Instructions:</label>
-          <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder={displayRecipe.instructions} required></textarea>
-          <label htmlFor="tags">Tags:</label>
-          {tags.map((tag) => (
-            <label key={tag}>
-              <input id="checkbox" type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
-              {tag}
-            </label>
-          ))}
-          <label htmlFor="image">Image:</label>
-                <input id="image-input" type="text" name="image" value={formData.image} onChange={handleChange} placeholder={displayRecipe.image}></input>
-          <label htmlFor="source">Source:</label>
-          <input id="source-input" type="text" name="source" value={formData.source} onChange={handleChange} placeholder={displayRecipe.source}></input>
-          <button type="submit">Save</button>
-        </form>
-      </div>}
+      }
+      {
+        (!isVisible) && <div className="recipe-container">
+          <form id="add-recipe-form" onSubmit={handleSubmit}>
+            <label htmlFor="title">Recipe title:</label>
+            <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayRecipe.title} required></input>
+            <label htmlFor="category">Category:</label>
+            <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange} required>
+              <option value="">Select category</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Side Dish">Side Dish</option>
+              <option value="Main Dish">Main Dish</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Appetizer">Appetizer</option>
+              <option value="Baked Good">Baked Good</option>
+            </select>
+            <label htmlFor="ingredients">Ingredients:</label>
+            <textarea id="ingredients-input" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder={displayRecipe.ingredients} required></textarea>
+            <label htmlFor="instructions">Instructions:</label>
+            <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder={displayRecipe.instructions} required></textarea>
+            <label htmlFor="tags">Tags:</label>
+            {tags.map((tag) => (
+              <label key={tag}>
+                <input id="checkbox" type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={handleCheckboxChange} />
+                {tag}
+              </label>
+            ))}
+            <label htmlFor="image">Image:</label>
+            <input id="image-input" type="text" name="image" value={formData.image} onChange={handleChange} placeholder={displayRecipe.image}></input>
+            <label htmlFor="source">Source:</label>
+            <input id="source-input" type="text" name="source" value={formData.source} onChange={handleChange} placeholder={displayRecipe.source}></input>
+            <button type="submit">Save</button>
+          </form>
+        </div>
+      }
     </>
   );
 }

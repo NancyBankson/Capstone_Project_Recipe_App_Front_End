@@ -34,7 +34,7 @@ export function AddMemoryPage() {
         }));
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         createNewMemory(formData);
         alert("New memory created");

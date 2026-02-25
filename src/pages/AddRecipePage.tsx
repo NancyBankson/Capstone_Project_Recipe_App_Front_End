@@ -68,7 +68,7 @@ export function AddRecipePage() {
         }));
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         createNewRecipe(formData);
         setFormData({

@@ -179,6 +179,15 @@ textarea {
   min-height: 0;
 }
 
+dialog {
+  border-radius: 15px;
+  border: 3px solid #BDBBB6;
+}
+
+dialog button {
+  margin: 10px;
+}
+
 @media (min-width: 751px) {
 
   #home-container {

@@ -34,7 +34,7 @@ export function LoginPage() {
         }));
     };
 
-    const handleLogIn = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleLogIn = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         login(logInFormData.email, logInFormData.password);
     };
@@ -48,7 +48,7 @@ export function LoginPage() {
         }));
     };
 
-    const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleRegister = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (registrationFormData.password != registrationFormData.confirmPassword) {
             alert("Passwords must match");

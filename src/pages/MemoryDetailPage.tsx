@@ -91,7 +91,7 @@ export function MemoryDetailPage() {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             >
-                <p>Are you sure?</p>
+                <p>Are you sure you want to delete this memory?</p>
                 <button onClick={() => handleDelete()}>Delete</button>
                 <button onClick={() => setIsModalOpen(false)}>Return</button>
             </Modal>

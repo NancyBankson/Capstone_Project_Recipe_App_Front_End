@@ -38,12 +38,10 @@ function App() {
 
   async function login(email: string, password: string) {
     try {
-      console.log(`${import.meta.env.VITE_API_URL}/api/users/login`);
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, {
         email: email,
         password: password
       });
-      console.log(response.data.user);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", response.data.user._id);
       console.log('Logged in', response.data);
