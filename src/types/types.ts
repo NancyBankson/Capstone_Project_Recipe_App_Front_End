@@ -44,6 +44,12 @@ export interface RegistrationFormData {
     confirmPassword: string;
 }
 
+export interface NewPasswordFormData {
+    oldPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+}
+
 export interface RecipeFormData {
     title: string;
     category: string;

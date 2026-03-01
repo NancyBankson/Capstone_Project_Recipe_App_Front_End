@@ -64,7 +64,6 @@ export function LoginPage() {
 
     return (
         <>
-
             <div className="login-container">
                 {isRegistered && <form className="login-form" onSubmit={handleLogIn}>
                     <label htmlFor="email">Email Address:</label>
@@ -80,7 +79,7 @@ export function LoginPage() {
                     <input id="email-input" type="email" name="email" value={registrationFormData.email} onChange={handleRegisterChange} placeholder="Enter email" required></input>
                     <label htmlFor="password">Password:</label>
                     <input id="password-input" type="password" name="password" value={registrationFormData.password} onChange={handleRegisterChange} placeholder="Enter password" required></input>
-                    <label htmlFor="confirm-password">Confirm Password:</label>
+                    <label htmlFor="confirmPassword">Confirm Password:</label>
                     <input id="confirm-password-input" type="password" name="confirmPassword" value={registrationFormData.confirmPassword} onChange={handleRegisterChange} placeholder="Reenter password" required></input>
                     <button type="submit">Register</button>
                 </form>}

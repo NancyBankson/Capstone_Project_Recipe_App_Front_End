@@ -15,6 +15,7 @@ import { RootPage } from './pages/RootPage';
 import type { User } from './types/types';
 import './App.css'
 import { SearchContext } from './context/SearchContext';
+import { ChangePasswordPage } from './pages/ChangePasswordPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -89,6 +90,7 @@ function App() {
           <Route path="/favorites" element={<FavoritesPage />} /> */}
               <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
               <Route path="/memory/:memoryId" element={<MemoryDetailPage />} />
+               <Route path="/change-password" element={<ChangePasswordPage />} />
               <Route path="*" element={<NotFoundPage />} />
               {/* <Route path="/search" element={<SearchPage />} /> */}
             </Routes>

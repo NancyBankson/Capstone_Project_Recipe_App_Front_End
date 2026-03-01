@@ -65,6 +65,7 @@ export function Navbar() {
                     {(isAuthenticated) && <h4>Welcome, {user.username}</h4>}
                     {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}
                     {(isAuthenticated) && <button onClick={() => handleClick()}>Log Out</button>}
+                    {(isAuthenticated) && <button id="change-password-button"><NavLink to="/change-password">Change Password</NavLink></button>}
                 </div>
             </div>
         </nav>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { RecipeFormData, Recipe, MemoryFormData, Memory } from "../types/types";
+import type { RecipeFormData, Recipe, MemoryFormData, Memory, NewPasswordFormData } from "../types/types";
 
 export async function getRecipes() {
   try {
@@ -194,5 +194,19 @@ export async function register(username: string, email: string, password: string
     console.log('Registered', response.data);
   } catch (error) {
     console.error('Error registering', error);
+  }
+}
+
+export async function changePassword(formData: NewPasswordFormData) {
+  try {
+    let token = localStorage.getItem("token");
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/change-password`, formData, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    console.log('Password changed', response.data);
+  } catch (error) {
+    console.error('Error changing password', error);
   }
 }
