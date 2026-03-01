@@ -78,9 +78,9 @@ export function LoginPage() {
                     <label htmlFor="email">Email Address:</label>
                     <input id="email-input" type="email" name="email" value={registrationFormData.email} onChange={handleRegisterChange} placeholder="Enter email" required></input>
                     <label htmlFor="password">Password:</label>
-                    <input id="password-input" type="password" name="password" value={registrationFormData.password} onChange={handleRegisterChange} placeholder="Enter password" required></input>
+                    <input id="password-input" type="password" name="password" minLength={5} value={registrationFormData.password} onChange={handleRegisterChange} placeholder="Enter password" required></input>
                     <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input id="confirm-password-input" type="password" name="confirmPassword" value={registrationFormData.confirmPassword} onChange={handleRegisterChange} placeholder="Reenter password" required></input>
+                    <input id="confirm-password-input" type="password" name="confirmPassword" minLength={5} value={registrationFormData.confirmPassword} onChange={handleRegisterChange} placeholder="Reenter password" required></input>
                     <button type="submit">Register</button>
                 </form>}
             </div>
