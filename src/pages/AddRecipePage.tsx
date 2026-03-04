@@ -12,6 +12,7 @@ export function AddRecipePage() {
         category: '',
         ingredients: '',
         instructions: '',
+        privacy: '',
         image: '',
         tags: selectedTags,
         source: ''
@@ -76,6 +77,7 @@ export function AddRecipePage() {
             category: '',
             ingredients: '',
             instructions: '',
+            privacy: '',
             image: '',
             tags: selectedTags,
             source: ''
@@ -119,6 +121,15 @@ export function AddRecipePage() {
                         {tag}
                     </label>
                 ))}
+                <label htmlFor="privacy">Privacy:</label>
+                <div id="radio">
+                    <label htmlFor="privacy" className="radio-label" >
+                        <input type="radio" className="radio-input" name="privacy" value="Public" checked={formData.privacy === "Public"} onChange={handleChange} /> Public
+                    </label>
+                    <label htmlFor="privacy" className="radio-label" >
+                        <input type="radio" className="radio-input" name="privacy" value="Private" checked={formData.privacy === "Private"} onChange={handleChange} /> Private
+                    </label>
+                </div>
                 <label htmlFor="image">Image:</label>
                 <input id="image-input" type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Enter a url with link to image"></input>
                 <label htmlFor="source">Source:</label>

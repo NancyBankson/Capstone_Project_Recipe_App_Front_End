@@ -20,6 +20,7 @@ export function RecipeDetailPage() {
     category: "category",
     ingredients: "ingredients",
     instructions: "instructions",
+    privacy: "privacy",
     image: "image",
     tags: ["tags"],
     source: "source"
@@ -115,6 +116,7 @@ export function RecipeDetailPage() {
       category: '',
       ingredients: '',
       instructions: '',
+      privacy: '',
       image: '',
       tags: selectedTags,
       source: ''
@@ -160,6 +162,7 @@ export function RecipeDetailPage() {
               <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.instructions}</p>
               <h3 className="header-text">Category: {displayRecipe.category}</h3>
               <h3 className="header-text">Tags: {tagString}</h3>
+              <h3 className="header-text">Privacy: {displayRecipe.privacy}</h3>
               {(displayRecipe.source) && <h3>Source: <a href={displayRecipe.source}>{displayRecipe.source}</a></h3>}
             </div>
           </div>
@@ -171,7 +174,7 @@ export function RecipeDetailPage() {
             <label htmlFor="title">Recipe title:</label>
             <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayRecipe.title} required></input>
             <label htmlFor="category">Category:</label>
-            <select id="category-input" defaultValue={displayRecipe.category} name="category" value={formData.category} onChange={handleChange} required>
+            <select id="category-input" defaultValue={displayRecipe.category} name="category" onChange={handleChange} required>
               <option value="">Select category</option>
               <option value="Breakfast">Breakfast</option>
               <option value="Side Dish">Side Dish</option>
@@ -191,6 +194,15 @@ export function RecipeDetailPage() {
                 {tag}
               </label>
             ))}
+            <label htmlFor="privacy">Privacy:</label>
+            <div id="radio">
+              <label htmlFor="privacy" className="radio-label" >
+                <input type="radio" className="radio-input" name="privacy" value="Public" checked={formData.privacy === "Public"} onChange={handleChange} /> Public
+              </label>
+              <label htmlFor="privacy" className="radio-label" >
+                <input type="radio" className="radio-input" name="privacy" value="Private" checked={formData.privacy === "Private"} onChange={handleChange} /> Private
+              </label>
+            </div>
             <label htmlFor="image">Image:</label>
             <input id="image-input" type="text" name="image" value={formData.image} onChange={handleChange} placeholder={displayRecipe.image}></input>
             <label htmlFor="source">Source:</label>

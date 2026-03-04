@@ -18,6 +18,7 @@ export function MemoryDetailPage() {
         user: "user",
         title: "title",
         contents: "contents",
+        privacy: "privacy",
         image: "image"
     });
     const [formData, setFormData] = useState<Memory>(displayMemory);
@@ -74,6 +75,7 @@ export function MemoryDetailPage() {
             user: '',
             title: '',
             contents: '',
+            privacy: '',
             image: ''
         });
         setIsVisible(true);
@@ -113,6 +115,7 @@ export function MemoryDetailPage() {
                             <p style={{ whiteSpace: 'pre-wrap' }}>{displayMemory.contents}</p>
                         </div>
                     </div>
+                    <h3 className="header-text">Privacy: {displayMemory.privacy}</h3>
                 </div>
             </div>}
             {(!isVisible) && <div className="memory-container">
@@ -121,6 +124,15 @@ export function MemoryDetailPage() {
                     <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayMemory.title} required></input>
                     <label htmlFor="contents">Contents:</label>
                     <textarea id="contents-input" name="contents" value={formData.contents} onChange={handleChange} placeholder={displayMemory.contents} required></textarea>
+                    <label htmlFor="privacy">Privacy:</label>
+                    <div id="radio">
+                        <label htmlFor="privacy" className="radio-label" >
+                            <input type="radio" className="radio-input" name="privacy" value="Public" checked={formData.privacy === "Public"} onChange={handleChange} /> Public
+                        </label>
+                        <label htmlFor="privacy" className="radio-label" >
+                            <input type="radio" className="radio-input" name="privacy" value="Private" checked={formData.privacy === "Private"} onChange={handleChange} /> Private
+                        </label>
+                    </div>
                     <button type="submit">Save</button>
                 </form>
             </div>}

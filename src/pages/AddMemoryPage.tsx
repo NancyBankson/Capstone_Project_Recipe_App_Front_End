@@ -9,6 +9,7 @@ export function AddMemoryPage() {
     const [formData, setFormData] = useState<MemoryFormData>({
         title: '',
         contents: '',
+        privacy: '',
         image: ''
     });
 
@@ -41,6 +42,7 @@ export function AddMemoryPage() {
         setFormData({
             title: '',
             contents: '',
+            privacy: '',
             image: ''
         });
     };
@@ -52,6 +54,14 @@ export function AddMemoryPage() {
                 <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter title" required></input>
                 <label htmlFor="contents">Contents:</label>
                 <textarea id="contents-input" name="contents" value={formData.contents} onChange={handleChange} placeholder="Enter contents"></textarea>
+                <div id="radio">
+                    <label htmlFor="privacy" className="radio-label" >
+                        <input type="radio" className="radio-input" name="privacy" value="Public" checked={formData.privacy === "Public"} onChange={handleChange} /> Public
+                    </label>
+                    <label htmlFor="privacy" className="radio-label" >
+                        <input type="radio" className="radio-input" name="privacy" value="Private" checked={formData.privacy === "Private"} onChange={handleChange} /> Private
+                    </label>
+                </div>
                 <label htmlFor="image">Memory image:</label>
                 <input id="image-input" type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Enter a link to an image"></input>
                 <button type="submit">Submit</button>

@@ -3,13 +3,16 @@ import { getRecipes, getMemories } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
 import { MemoryList } from '../components/MemoryList';
 import { SearchContext } from '../context/SearchContext';
-import type { Recipe } from '../types/types';
+import { AuthContext } from '../context/AuthContext';
+import type { Recipe, Memory } from '../types/types';
 
 export function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>(recipes);
-  const [memories, setMemories] = useState(null);
+  const [memories, setMemories] = useState<Memory[]>([]);
+  const [filteredMemories, setFilteredMemories] = useState<Memory[]>(memories);
   const searchContext = useContext(SearchContext);
+  const authContext = useContext(AuthContext);
 
   if (!searchContext) {
     return (
@@ -18,6 +21,14 @@ export function HomePage() {
   }
 
   const { searchValue, filterValue } = searchContext;
+
+  if (!authContext) {
+    return (
+      <h3>Error</h3>
+    )
+  }
+
+  const { user } = authContext;
 
   useEffect(() => {
     getRecipes().then(data => setRecipes(data));
@@ -28,8 +39,26 @@ export function HomePage() {
   }, []);
 
   useEffect(() => {
-    setFilteredRecipes(recipes);
+    const filterRecipes = recipes.filter(recipe => {
+      if (recipe.privacy === "Public") {
+        return recipe;
+      } else if (user._id === recipe.user) {
+        return recipe;
+      }
+    })
+    setFilteredRecipes(filterRecipes);
   }, [recipes]);
+
+  useEffect(() => {
+    const filterMemories = memories.filter(memory => {
+      if (memory.privacy === "Public") {
+        return memory;
+      } else if (user._id === memory.user) {
+        return memory;
+      }
+    })
+    setFilteredMemories(filterMemories);
+  }, [memories]);
 
   useEffect(() => {
     const filterRecipes = recipes.filter(recipe => {
@@ -62,7 +91,7 @@ export function HomePage() {
         </div>
         <div className='list-container'>
           <h2>Memories</h2>
-          <MemoryList memories={memories} />
+          <MemoryList memories={filteredMemories} />
         </div>
       </div>
     </div>
