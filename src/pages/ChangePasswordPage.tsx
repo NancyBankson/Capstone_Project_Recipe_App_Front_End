@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { changePassword } from "../utils/recipes-api";
+import { AuthContext } from "../context/AuthContext";
 import type { NewPasswordFormData } from "../types/types";
 
 export function ChangePasswordPage() {
-    // const [isChangingPassword, setIsChangingPassword] = useState(false);
     const navigate = useNavigate();
+    const authContext = useContext(AuthContext);
     const [newPasswordFormData, setnewPasswordFormData] = useState<NewPasswordFormData>({
         oldPassword: '',
         newPassword: '',
         confirmNewPassword: ''
     });
+
+    if (!authContext) {
+        return (
+            <h3>Error</h3>
+        )
+    }
+
+    const { logout } = authContext;
 
     const handlePasswordChangeEntry = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target; // Destructure name and value
@@ -27,6 +36,7 @@ export function ChangePasswordPage() {
             alert("Passwords must match");
         } else {
             changePassword(newPasswordFormData);
+            logout();
             navigate("/login"); // Navigate to login page
         }
     };

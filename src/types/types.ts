@@ -34,6 +34,10 @@ export interface MemoryCardProps {
     memories: Memory[] | null;
 }
 
+export interface UserCardProps {
+    users: User[] | null;
+}
+
 export interface LogInFormData {
     email: string;
     password: string;

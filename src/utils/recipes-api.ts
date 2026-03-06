@@ -184,6 +184,21 @@ export async function deleteMemory(memoryId: string) {
 //   }
 // }
 
+export async function getUsers() {
+  try {
+    // Gets all users
+    let token = localStorage.getItem("token");
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/auth`, {
+      headers: {
+        'Authorization': token
+      }
+    });
+    return response.data; // The retrieved data
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+}
+
 export async function register(username: string, email: string, password: string) {
   try {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/register`, {
@@ -200,7 +215,7 @@ export async function register(username: string, email: string, password: string
 export async function changePassword(formData: NewPasswordFormData) {
   try {
     let token = localStorage.getItem("token");
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/change-password`, formData, {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/auth/change-password`, formData, {
       headers: {
         'Authorization': token
       }

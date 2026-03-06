@@ -1,16 +1,18 @@
 import { useState, useEffect, useContext } from 'react';
-import { getRecipes, getMemories } from '../utils/recipes-api';
+import { getRecipes, getMemories, getUsers } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
 import { MemoryList } from '../components/MemoryList';
+import { UserList } from '../components/UserList';
 import { SearchContext } from '../context/SearchContext';
 import { AuthContext } from '../context/AuthContext';
-import type { Recipe, Memory } from '../types/types';
+import type { Recipe, Memory, User } from '../types/types';
 
 export function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>(recipes);
   const [memories, setMemories] = useState<Memory[]>([]);
   const [filteredMemories, setFilteredMemories] = useState<Memory[]>(memories);
+  const [users, setUsers] = useState<User[]>([]);
   const searchContext = useContext(SearchContext);
   const authContext = useContext(AuthContext);
 
@@ -33,6 +35,7 @@ export function HomePage() {
   useEffect(() => {
     getRecipes().then(data => setRecipes(data));
     getMemories().then(data => setMemories(data));
+    getUsers().then(data => setUsers(data));
   }, []);
 
   // Display only public recipes or those of user
@@ -109,6 +112,10 @@ export function HomePage() {
         <div className='list-container'>
           <h2>Memories</h2>
           <MemoryList memories={filteredMemories} />
+        </div>
+        <div className='list-container'>
+          <h2>Contributors</h2>
+          <UserList users={users} />
         </div>
       </div>
     </div>

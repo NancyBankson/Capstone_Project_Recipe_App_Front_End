@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { getRecipes, getMemories } from '../utils/recipes-api';
+import { useParams, Navigate, useLocation } from 'react-router-dom';
+import { getRecipes, getMemories, getUsers } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
 import { MemoryList } from '../components/MemoryList';
-import type { Recipe, Memory } from '../types/types';
+import { UserList } from '../components/UserList';
+import type { Recipe, Memory, User } from '../types/types';
 import { AuthContext } from '../context/AuthContext';
 import { SearchContext } from '../context/SearchContext';
 
@@ -15,6 +16,8 @@ export function ContributorPage() {
     const [searchRecipes, setSearchRecipes] = useState<Recipe[]>(filteredRecipes);
     const [memories, setMemories] = useState<Memory[]>([]);
     const [filteredMemories, setFilteredMemories] = useState<Memory[]>(memories);
+    const [users, setUsers] = useState<User[]>([]);
+    const location = useLocation();
     const searchContext = useContext(SearchContext);
 
     if (!searchContext) {
@@ -41,16 +44,17 @@ export function ContributorPage() {
     useEffect(() => {
         getRecipes().then(data => setRecipes(data));
         getMemories().then(data => setMemories(data));
+        getUsers().then(data => setUsers(data));
     }, []);
 
-    // Display only user recipes
+    // Display only contributor recipes
     useEffect(() => {
         setFilteredRecipes(recipes.filter((recipe) => {
             if (recipe.user === userId) {
                 return recipe;
             }
         }))
-    }, [recipes]);
+    }, [recipes, userId, location.pathname]);
 
     // Display only user memories
     useEffect(() => {
@@ -59,12 +63,12 @@ export function ContributorPage() {
                 return memory;
             }
         }))
-    }, [memories]);
+    }, [memories, userId, location.pathname]);
 
     // Display recipes based on search bar
     useEffect(() => {
         const filterRecipes = filteredRecipes.filter(recipe => {
-            if (searchValue === "") {
+            if ((searchValue === "") && (recipe.user === userId)) {
                 return recipe;
             } else if (recipe.title.toLowerCase().includes(searchValue!.toLowerCase())) {
                 return recipe;
@@ -76,9 +80,9 @@ export function ContributorPage() {
     // Display recipes based on category
     useEffect(() => {
         const filterRecipes = filteredRecipes.filter(recipe => {
-            if (filterValue === "") {
+            if ((filterValue === "") && (recipe.user === userId)) {
                 return recipe;
-            } else if (recipe.category === filterValue) {
+            } else if ((recipe.category === filterValue) && (recipe.user === userId)) {
                 return recipe;
             }
         })
@@ -88,11 +92,11 @@ export function ContributorPage() {
     // Display recies based on tag selection
     useEffect(() => {
         const filterRecipes = recipes.filter(recipe => {
-            if (selectedOptions.length < 1 || selectedOptions == undefined) {
+            if ((selectedOptions.length < 1 || selectedOptions == undefined) && (recipe.user === userId)) {
                 return recipe;
             } else {
                 for (let i = 0; i < selectedOptions.length; i++) {
-                    if (recipe.tags.includes(selectedOptions[i].value)) {
+                    if ((recipe.tags.includes(selectedOptions[i].value)) && (recipe.user === userId)) {
                         return recipe;
                     }
                 }
@@ -110,6 +114,10 @@ export function ContributorPage() {
             <div className='list-container'>
                 <h2>Memories</h2>
                 <MemoryList memories={filteredMemories} />
+            </div>
+            <div className='list-container'>
+                <h2>Contributors</h2>
+                <UserList users={users} />
             </div>
         </div>
     );
