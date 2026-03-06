@@ -32,12 +32,10 @@ export function HomePage() {
 
   useEffect(() => {
     getRecipes().then(data => setRecipes(data));
-  }, []);
-
-  useEffect(() => {
     getMemories().then(data => setMemories(data));
   }, []);
 
+  // Display only public recipes or those of user
   useEffect(() => {
     const filterRecipes = recipes.filter(recipe => {
       if (recipe.privacy === "Public") {
@@ -49,6 +47,7 @@ export function HomePage() {
     setFilteredRecipes(filterRecipes);
   }, [recipes]);
 
+  // Display only public memories or those of user
   useEffect(() => {
     const filterMemories = memories.filter(memory => {
       if (memory.privacy === "Public") {
@@ -60,6 +59,7 @@ export function HomePage() {
     setFilteredMemories(filterMemories);
   }, [memories]);
 
+  // Display recipes based on search bar
   useEffect(() => {
     const filterRecipes = recipes.filter(recipe => {
       if (searchValue === "") {
@@ -71,6 +71,7 @@ export function HomePage() {
     setFilteredRecipes(filterRecipes);
   }, [searchValue]);
 
+  // Display recipes based on selected category
   useEffect(() => {
     const filterRecipes = recipes.filter(recipe => {
       if (filterValue === "") {
@@ -82,6 +83,7 @@ export function HomePage() {
     setFilteredRecipes(filterRecipes);
   }, [filterValue]);
 
+  // Display recipes based on selected tags
   useEffect(() => {
     const filterRecipes = recipes.filter(recipe => {
       if (selectedOptions.length < 1 || selectedOptions == undefined) {

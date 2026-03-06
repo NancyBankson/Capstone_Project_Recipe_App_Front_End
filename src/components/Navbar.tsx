@@ -1,19 +1,23 @@
-import { NavLink, useNavigate } from "react-router-dom"
-import { useContext } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom"
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
 import Select from "react-select";
 import type { TagType } from "../types/types";
 import type { MultiValue } from "react-select";
-// import { TagOption } from '../components/TagOption';
-// import type { MultiValue } from "react-select";
-// import type { TagType } from "../types/types";
 
 export function Navbar() {
     const authContext = useContext(AuthContext);
     const searchContext = useContext(SearchContext);
-    // const [selectedValues, setSelectedValues] = useState<MultiValue<TagType>>([]);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Clear search bar on page change
+    useEffect(() => {
+        setSelectedOptions([]);
+        onSearchChange("");
+        onFilterChange("");
+    }, [location.pathname]);
 
     if (!authContext) {
         return (
@@ -27,7 +31,7 @@ export function Navbar() {
         )
     }
 
-    const { onSearchChange, onFilterChange, searchValue, filterValue, setSelectedOptions } = searchContext;
+    const { onSearchChange, searchValue, onFilterChange, filterValue, selectedOptions, setSelectedOptions } = searchContext;
 
     const { logout, isAuthenticated, user } = authContext;
 
@@ -56,25 +60,9 @@ export function Navbar() {
         onFilterChange(newText);
     }
 
-    // const handleTagChange = (event: React.ChangeEvent<ReactSelectElement>) {
-    //     const selectedTags: string[] = Array.from(event.target.SelectedOptions, (option) => option.value);
-    //     onTagChange(selectedTags);
-    // }
-
     const handleTagChange = (selected: MultiValue<TagType>) => {
         setSelectedOptions([...selected]);
     }
-
-    // const handlesTagChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    //     const selected: string[] = Array.from(event.target.selectedOptions, (option) => option.value);
-    //     console.log(selected);
-    //     setSelectedValues(selected);
-    // }
-
-    // const handleTagChange = (selected: MultiValue<TagType>) => {
-    //     const stringValues = selected.map(tag => tag.value);
-    //     setSelectedValues(stringValues);
-    // }
 
     // Add logic so userId can be used for link to My Page
     const userId = localStorage.getItem("user");
@@ -101,20 +89,9 @@ export function Navbar() {
                 <Select
                     options={options}
                     isMulti
-                    // value={selectedValues}
+                    value={selectedOptions}
                     onChange={handleTagChange}
                 />
-                {/* <select id="tag-input" options={options} isMulti value={selectedValues} onChange={handleTagChange}>
-                    <option value="Chicken">Chicken</option>
-                    <option value="Beef">Beef</option>
-                </select> */}
-                {/* <TagOption 
-                    options={options}
-                    onChange={(value) => setTag(value)}
-                    value=(tag)
-                    placeholder={'Select tags'}
-                    multiple={true}
-                /> */}
                 <div id="log-area">
                     {(isAuthenticated) && <h4>Welcome, {user.username}</h4>}
                     {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}
