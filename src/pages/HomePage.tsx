@@ -20,7 +20,7 @@ export function HomePage() {
     )
   }
 
-  const { searchValue, filterValue } = searchContext;
+  const { searchValue, filterValue, selectedOptions } = searchContext;
 
   if (!authContext) {
     return (
@@ -81,6 +81,21 @@ export function HomePage() {
     })
     setFilteredRecipes(filterRecipes);
   }, [filterValue]);
+
+  useEffect(() => {
+    const filterRecipes = recipes.filter(recipe => {
+      if (selectedOptions.length < 1 || selectedOptions == undefined) {
+        return recipe;
+      } else {
+        for (let i = 0; i < selectedOptions.length; i++) {
+          if (recipe.tags.includes(selectedOptions[i].value)) {
+            return recipe;
+          }
+        }
+      }
+    })
+    setFilteredRecipes(filterRecipes);
+  }, [selectedOptions]);
 
   return (
     <div>

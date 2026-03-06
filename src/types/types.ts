@@ -83,6 +83,13 @@ export interface SearchContextType {
     onFilterChange: (text: string) => void;
     searchValue?: string;
     filterValue?: string;
+    selectedOptions: TagType[];
+    setSelectedOptions: (options: TagType[]) => void;
+}
+
+export interface TagType {
+    value: string;
+    label: string;
 }
 
 export interface ModalProps {

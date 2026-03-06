@@ -16,11 +16,13 @@ import type { User } from './types/types';
 import './App.css'
 import { SearchContext } from './context/SearchContext';
 import { ChangePasswordPage } from './pages/ChangePasswordPage';
+import type { TagType } from './types/types';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<TagType[]>([])
   const [token, setToken] = useState("");
   const [user, setUser] = useState<User>({
     _id: '',
@@ -36,6 +38,10 @@ function App() {
    function onFilterChange(filterText: string) {
     setFilterValue(filterText);
   }
+
+  // function onTagChange(tagArray: string[]) {
+  //   setTagValues(tagArray);
+  // }
 
   async function login(email: string, password: string) {
     try {
@@ -77,7 +83,7 @@ function App() {
     <>
       <div>
         <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout }}>
-          <SearchContext.Provider value={{ onSearchChange, searchValue, onFilterChange, filterValue }}>
+          <SearchContext.Provider value={{ onSearchChange, searchValue, onFilterChange, filterValue, selectedOptions, setSelectedOptions }}>
             <Navbar />
             <Routes>
               <Route path="/" element={<RootPage />} />

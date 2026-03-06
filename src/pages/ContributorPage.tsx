@@ -29,7 +29,7 @@ export function ContributorPage() {
         )
     }
 
-    const { searchValue, filterValue } = searchContext;
+    const { searchValue, filterValue, selectedOptions } = searchContext;
 
     // Redirect to login page if not authenticated
     const { isAuthenticated } = authContext;
@@ -83,6 +83,21 @@ export function ContributorPage() {
         })
         setSearchRecipes(filterRecipes);
     }, [filteredRecipes, filterValue]);
+
+    useEffect(() => {
+        const filterRecipes = recipes.filter(recipe => {
+            if (selectedOptions.length < 1 || selectedOptions == undefined) {
+                return recipe;
+            } else {
+                for (let i = 0; i < selectedOptions.length; i++) {
+                    if (recipe.tags.includes(selectedOptions[i].value)) {
+                        return recipe;
+                    }
+                }
+            }
+        })
+        setFilteredRecipes(filterRecipes);
+    }, [selectedOptions]);
 
     return (
         <div id="contributor-container">
