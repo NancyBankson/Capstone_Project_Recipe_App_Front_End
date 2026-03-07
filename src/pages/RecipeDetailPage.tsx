@@ -192,7 +192,7 @@ export function RecipeDetailPage() {
             <label htmlFor="instructions">Instructions:</label>
             <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder={displayRecipe.instructions} required></textarea>
             <label htmlFor="notes">Notes:</label>
-            <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder={displayRecipe.notes} required></textarea>
+            <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder={displayRecipe.notes}></textarea>
             <label htmlFor="tags">Tags:</label>
             {tags.map((tag) => (
               <label key={tag}>
