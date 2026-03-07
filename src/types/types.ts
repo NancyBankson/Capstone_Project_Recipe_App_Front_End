@@ -5,6 +5,7 @@ export interface Recipe {
     category: string;
     ingredients: string;
     instructions: string;
+    notes: string;
     privacy: string;
     image: string;
     tags: string[];
@@ -16,6 +17,7 @@ export interface Memory {
     user: string;
     title: string;
     contents: string;
+    notes: string;
     privacy: string;
     image: string;
 }
@@ -61,6 +63,7 @@ export interface RecipeFormData {
     category: string;
     ingredients: string;
     instructions: string;
+    notes: string;
     privacy: string;
     image: string;
     tags: string[];
@@ -70,6 +73,7 @@ export interface RecipeFormData {
 export interface MemoryFormData {
     title: string;
     contents: string;
+    notes: string;
     privacy: string;
     image: string;
 }

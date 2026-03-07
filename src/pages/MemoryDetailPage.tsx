@@ -18,6 +18,7 @@ export function MemoryDetailPage() {
         user: "user",
         title: "title",
         contents: "contents",
+        notes: "notes",
         privacy: "privacy",
         image: "image"
     });
@@ -75,6 +76,7 @@ export function MemoryDetailPage() {
             user: '',
             title: '',
             contents: '',
+            notes: '',
             privacy: '',
             image: ''
         });
@@ -108,11 +110,14 @@ export function MemoryDetailPage() {
                     <div className="memory-head">
                         {(displayMemory.image) && <img src={displayMemory.image} />}
                         <h1>{displayMemory.title}</h1>
-                        {/* <button onClick={handleFavorite}>{isFavorite ? "Remove from Favorites" : "Add to Favorites"}</button> */}
                     </div>
                     <div className="memory-body">
                         <div className="contents">
                             <p style={{ whiteSpace: 'pre-wrap' }}>{displayMemory.contents}</p>
+                        </div>
+                        <div className="notes">
+                            <br></br>
+                            <p style={{ whiteSpace: 'pre-wrap' }}>{displayMemory.notes}</p>
                         </div>
                     </div>
                     <h3 className="header-text">Privacy: {displayMemory.privacy}</h3>
@@ -124,6 +129,8 @@ export function MemoryDetailPage() {
                     <input id="title-input" type="text" name="title" value={formData.title} onChange={handleChange} placeholder={displayMemory.title} required></input>
                     <label htmlFor="contents">Contents:</label>
                     <textarea id="contents-input" name="contents" value={formData.contents} onChange={handleChange} placeholder={displayMemory.contents} required></textarea>
+                    <label htmlFor="notes">Notes:</label>
+                    <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder={displayMemory.notes} required></textarea>
                     <label htmlFor="privacy">Privacy:</label>
                     <div id="radio">
                         <label htmlFor="privacy" className="radio-label" >

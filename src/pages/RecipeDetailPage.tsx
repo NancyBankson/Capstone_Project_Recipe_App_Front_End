@@ -20,6 +20,7 @@ export function RecipeDetailPage() {
     category: "category",
     ingredients: "ingredients",
     instructions: "instructions",
+    notes: "notes",
     privacy: "privacy",
     image: "image",
     tags: ["tags"],
@@ -116,6 +117,7 @@ export function RecipeDetailPage() {
       category: '',
       ingredients: '',
       instructions: '',
+      notes: '',
       privacy: '',
       image: '',
       tags: selectedTags,
@@ -160,6 +162,8 @@ export function RecipeDetailPage() {
               </div>
               <h2 className="header-text">Instructions</h2>
               <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.instructions}</p>
+              <h2 className="header-text">Notes</h2>
+              <p style={{ whiteSpace: 'pre-wrap' }}>{displayRecipe.notes}</p>
               <h3 className="header-text">Category: {displayRecipe.category}</h3>
               <h3 className="header-text">Tags: {tagString}</h3>
               <h3 className="header-text">Privacy: {displayRecipe.privacy}</h3>
@@ -187,6 +191,8 @@ export function RecipeDetailPage() {
             <textarea id="ingredients-input" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder={displayRecipe.ingredients} required></textarea>
             <label htmlFor="instructions">Instructions:</label>
             <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder={displayRecipe.instructions} required></textarea>
+            <label htmlFor="notes">Notes:</label>
+            <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder={displayRecipe.notes} required></textarea>
             <label htmlFor="tags">Tags:</label>
             {tags.map((tag) => (
               <label key={tag}>

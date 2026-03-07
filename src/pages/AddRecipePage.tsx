@@ -12,6 +12,7 @@ export function AddRecipePage() {
         category: '',
         ingredients: '',
         instructions: '',
+        notes: '',
         privacy: '',
         image: '',
         tags: selectedTags,
@@ -77,6 +78,7 @@ export function AddRecipePage() {
             category: '',
             ingredients: '',
             instructions: '',
+            notes: '',
             privacy: '',
             image: '',
             tags: selectedTags,
@@ -114,6 +116,8 @@ export function AddRecipePage() {
                 <textarea id="ingredients-input" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder="Enter ingredients" required></textarea>
                 <label htmlFor="instructions">Instructions:</label>
                 <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder="Enter instructions" required></textarea>
+                <label htmlFor="notes">Notes:</label>
+                <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder="Enter notes" required></textarea>
                 <label htmlFor="tags">Tags:</label>
                 {tags.map((tag) => (
                     <label key={tag}>
