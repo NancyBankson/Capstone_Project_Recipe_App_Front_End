@@ -3,6 +3,7 @@ import { getRecipes, getMemories, getUsers } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
 import { MemoryList } from '../components/MemoryList';
 import { UserList } from '../components/UserList';
+import { Spinner } from '../components/Spinner';
 import { SearchContext } from '../context/SearchContext';
 import { AuthContext } from '../context/AuthContext';
 import type { Recipe, Memory, User } from '../types/types';
@@ -13,6 +14,7 @@ export function HomePage() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const [filteredMemories, setFilteredMemories] = useState<Memory[]>(memories);
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
   const searchContext = useContext(SearchContext);
   const authContext = useContext(AuthContext);
 
@@ -33,9 +35,16 @@ export function HomePage() {
   const { user } = authContext;
 
   useEffect(() => {
-    getRecipes().then(data => setRecipes(data));
-    getMemories().then(data => setMemories(data));
-    getUsers().then(data => setUsers(data));
+    setLoading(true);
+    Promise.all([getRecipes(), getMemories(), getUsers()])
+      .then(([recipesData, memoriesData, usersData]) => {
+        setRecipes(recipesData);
+        setMemories(memoriesData);
+        setUsers(usersData);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   // Display only public recipes or those of user
@@ -101,6 +110,15 @@ export function HomePage() {
     })
     setFilteredRecipes(filterRecipes);
   }, [selectedOptions]);
+
+  if (loading) {
+    return (
+      <div className="loading">
+        Loading recipes...
+        <Spinner />
+      </div>
+    )
+  }
 
   return (
     <div>

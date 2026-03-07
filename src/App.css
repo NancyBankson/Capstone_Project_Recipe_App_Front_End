@@ -19,8 +19,8 @@ a:hover {
 #page-title {
   font-family: "Playwrite CA", cursive;
   font-size: 5rem;
-    color: white;
-    padding-top: 60px;
+  color: white;
+  padding-top: 60px;
 }
 
 h1 {
@@ -206,6 +206,37 @@ dialog button {
   margin: 10px;
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+/* 2. Style the spinner element */
+.pure-css-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  /* Light gray border */
+  border-top: 4px solid #3498db;
+  /* Blue top border for the "filled" effect */
+  border-radius: 50%;
+  /* Makes the div a perfect circle */
+  width: 40px;
+  /* Adjust size as needed */
+  height: 40px;
+  /* Adjust size as needed */
+  animation: spin 1s linear infinite;
+  /* Apply the animation */
+}
+
 @media (min-width: 751px) {
 
   #home-container {
@@ -219,5 +250,5 @@ dialog button {
   #home-container {
     flex-direction: column;
   }
- 
-  }
+
+}

@@ -4,6 +4,7 @@ import { getRecipes, getMemories, getUsers } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
 import { MemoryList } from '../components/MemoryList';
 import { UserList } from '../components/UserList';
+import { Spinner } from '../components/Spinner';
 import type { Recipe, Memory, User } from '../types/types';
 import { AuthContext } from '../context/AuthContext';
 import { SearchContext } from '../context/SearchContext';
@@ -17,6 +18,7 @@ export function ContributorPage() {
     const [memories, setMemories] = useState<Memory[]>([]);
     const [filteredMemories, setFilteredMemories] = useState<Memory[]>(memories);
     const [users, setUsers] = useState<User[]>([]);
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
     const searchContext = useContext(SearchContext);
 
@@ -42,9 +44,16 @@ export function ContributorPage() {
     }
 
     useEffect(() => {
-        getRecipes().then(data => setRecipes(data));
-        getMemories().then(data => setMemories(data));
-        getUsers().then(data => setUsers(data));
+        setLoading(true);
+        Promise.all([getRecipes(), getMemories(), getUsers()])
+            .then(([recipesData, memoriesData, usersData]) => {
+                setRecipes(recipesData);
+                setMemories(memoriesData);
+                setUsers(usersData);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     // Display only contributor recipes
@@ -104,6 +113,15 @@ export function ContributorPage() {
         })
         setFilteredRecipes(filterRecipes);
     }, [selectedOptions]);
+
+    if (loading) {
+        return (
+            <div className="loading">
+                Loading recipes...
+                <Spinner />
+            </div>
+        )
+    }
 
     return (
         <div id="contributor-container">
