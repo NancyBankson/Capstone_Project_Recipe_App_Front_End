@@ -130,7 +130,7 @@ export function MemoryDetailPage() {
                     <label htmlFor="contents">Contents:</label>
                     <textarea id="contents-input" name="contents" value={formData.contents} onChange={handleChange} placeholder={displayMemory.contents} required></textarea>
                     <label htmlFor="notes">Notes:</label>
-                    <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder={displayMemory.notes} required></textarea>
+                    <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder={displayMemory.notes}></textarea>
                     <label htmlFor="privacy">Privacy:</label>
                     <div id="radio">
                         <label htmlFor="privacy" className="radio-label" >

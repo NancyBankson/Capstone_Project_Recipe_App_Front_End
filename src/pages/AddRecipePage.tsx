@@ -117,7 +117,7 @@ export function AddRecipePage() {
                 <label htmlFor="instructions">Instructions:</label>
                 <textarea id="instructions-input" name="instructions" value={formData.instructions} onChange={handleChange} placeholder="Enter instructions" required></textarea>
                 <label htmlFor="notes">Notes:</label>
-                <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder="Enter notes" required></textarea>
+                <textarea id="notes-input" name="notes" value={formData.notes} onChange={handleChange} placeholder="Enter notes"></textarea>
                 <label htmlFor="tags">Tags:</label>
                 {tags.map((tag) => (
                     <label key={tag}>
