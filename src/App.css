@@ -247,7 +247,7 @@ dialog button {
 
 @media (max-width: 750px) {
 
-  #home-container {
+  #home-container, #nav-container, #contributor-container {
     flex-direction: column;
   }
 
