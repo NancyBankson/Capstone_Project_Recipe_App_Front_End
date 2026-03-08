@@ -87,6 +87,7 @@ export function Navbar() {
                     <option value="Baked Good">Baked Good</option>
                 </select>
                 <Select
+                    id="tag-input"
                     options={options}
                     isMulti
                     value={selectedOptions}
