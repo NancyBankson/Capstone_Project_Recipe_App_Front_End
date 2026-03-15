@@ -59,6 +59,10 @@ ul {
   gap: 20px;
 }
 
+li {
+  text-align: center;
+}
+
 nav {
   gap: 20px;
   justify-content: center;
@@ -277,8 +281,8 @@ dialog button {
     flex-direction: column;
   }
 
-  li {
-    text-align: center;
+  ul {
+    justify-content: center;
   }
 
   h1 {
@@ -288,7 +292,7 @@ dialog button {
 
   .recipe-full,
   .memory-full {
-    padding: 5px;
+    width: 99%;
   }
 
 }
