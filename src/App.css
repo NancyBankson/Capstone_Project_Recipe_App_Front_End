@@ -256,7 +256,17 @@ dialog button {
   }
 
   #page-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
+}
+
+#log-area {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 2.5em;
+  line-height: 1.1;
 }
 
 }
