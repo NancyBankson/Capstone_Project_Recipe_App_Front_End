@@ -247,35 +247,48 @@ dialog button {
 
 @media (max-width: 750px) {
 
-  #home-container, #nav-container, #contributor-container {
+  #home-container,
+  #nav-container,
+  #contributor-container {
     flex-direction: column;
   }
 
-  #search-bar, #category-input, #tag-input {
+  #search-bar,
+  #category-input,
+  #tag-input {
     margin: 8px 0;
   }
 
   #page-title {
-  font-size: 2.5rem;
-}
+    font-size: 2.5rem;
+  }
 
-#recipe-buttons,
-#memory-buttons {
-  display: flex;
-  justify-content: center;
-  width: 75%;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+  #recipe-buttons,
+  #memory-buttons {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
 
-#log-area {
-  display: flex;
-  flex-direction: column;
-}
+  #log-area {
+    display: flex;
+    flex-direction: column;
+  }
 
-h1 {
-  font-size: 2.5em;
-  line-height: 1.1;
-}
+  li {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.1;
+  }
+
+  .recipe-full,
+  .memory-full {
+    padding: 5px;
+  }
 
 }
