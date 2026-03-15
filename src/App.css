@@ -255,4 +255,8 @@ dialog button {
     margin: 8px 0;
   }
 
+  #page-title {
+  font-size: 2rem;
+}
+
 }
