@@ -259,6 +259,15 @@ dialog button {
   font-size: 2.5rem;
 }
 
+#recipe-buttons,
+#memory-buttons {
+  display: flex;
+  justify-content: center;
+  width: 75%;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
 #log-area {
   display: flex;
   flex-direction: column;
