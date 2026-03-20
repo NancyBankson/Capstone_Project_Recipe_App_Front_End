@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 import { getRecipes, getMemories, getUsers } from '../utils/recipes-api';
 import { RecipeList } from '../components/RecipeList';
 import { MemoryList } from '../components/MemoryList';
@@ -32,7 +33,11 @@ export function HomePage() {
     )
   }
 
-  const { user } = authContext;
+  const { user, isAuthenticated } = authContext;
+  if (!isAuthenticated) {
+    // Redirects to the login page if the condition (isLoggedIn) is false
+    return <Navigate to="/" replace />;
+  }
 
   useEffect(() => {
     setLoading(true);

@@ -30,8 +30,7 @@ export function RecipeDetailPage() {
   const [tagString, setTagString] = useState("");
   const [formData, setFormData] = useState<Recipe>(displayRecipe);
 
-  const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert'];
-
+  const tags = ['Casserole', 'Chocolate', 'Chicken', 'Beef', 'Fish', 'Pasta', 'Dessert', 'Lactose-free', 'Gluten-free', 'Vegan', 'Vegetarian'];
   useEffect(() => {
     setFormData(prevFormData => ({
       ...prevFormData, // Spread existing state

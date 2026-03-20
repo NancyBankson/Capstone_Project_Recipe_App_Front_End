@@ -42,7 +42,11 @@ export function Navbar() {
         { label: 'Beef', value: 'Beef' },
         { label: 'Fish', value: 'Fish' },
         { label: 'Pasta', value: 'Pasta' },
-        { label: 'Dessert', value: 'Dessert' }
+        { label: 'Lactose-free', value: 'Lactose-free' },
+        { label: 'Gluten-free', value: 'Gluten-free' },
+        { label: 'Dessert', value: 'Dessert' },
+        { label: 'Vegan', value: 'Vegan' },
+        { label: 'Vegetarian', value: 'Vegetarian' }
     ]
 
     const handleClick = () => {
@@ -76,23 +80,25 @@ export function Navbar() {
                     <li><NavLink to="/add-recipe" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Recipe</NavLink></li>
                     <li><NavLink to="/add-memory" style={({ isActive }) => ({ color: isActive ? '#73877B' : 'hsl(200, 15%, 8%)', })}>Add Memory</NavLink></li>
                 </ul>
-                <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Search recipes"></input>
-                <select id="category-input" name="category" value={filterValue} onChange={handleFilter} required>
-                    <option value="">Filter by Category</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Side Dish">Side Dish</option>
-                    <option value="Main Dish">Main Dish</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Appetizer">Appetizer</option>
-                    <option value="Baked Good">Baked Good</option>
-                </select>
-                <Select
-                    id="tag-input"
-                    options={options}
-                    isMulti
-                    value={selectedOptions}
-                    onChange={handleTagChange}
-                />
+                {isAuthenticated && <>
+                    <input id="search-bar" type="text" name="search" value={searchValue} onChange={handleChange} placeholder="Search recipes"></input>
+                    <select id="category-input" name="category" value={filterValue} onChange={handleFilter} required>
+                        <option value="">Filter by Category</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Side Dish">Side Dish</option>
+                        <option value="Main Dish">Main Dish</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Baked Good">Baked Good</option>
+                    </select>
+                    <Select
+                        id="tag-input"
+                        options={options}
+                        isMulti
+                        value={selectedOptions}
+                        onChange={handleTagChange}
+                    />
+                </>}
                 <div id="log-area">
                     {(isAuthenticated) && <h4>Welcome, {user.username}</h4>}
                     {(!isAuthenticated) && <button><NavLink to="/login">Log In</NavLink></button>}
